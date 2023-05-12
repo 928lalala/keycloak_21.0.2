@@ -80,12 +80,12 @@ public class AutoOTPAuthenticatorFactory implements AuthenticatorFactory, Config
 
     @Override
     public String getDisplayType() {
-        return "AutoOTP (DisplayType)";
+        return "AutoOTP";
     }
 
     @Override
     public String getReferenceCategory() {
-        return "AutoOTP (ReferenecCategory)";
+        return "AutoOTP";
     }
 
     @Override
