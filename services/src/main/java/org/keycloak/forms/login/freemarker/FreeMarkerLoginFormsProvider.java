@@ -495,6 +495,9 @@ public class FreeMarkerLoginFormsProvider implements LoginFormsProvider {
                         case LOGOUT_CONFIRM:
                             b = UriBuilder.fromUri(Urls.logoutConfirm(baseUri, realm.getName()));
                             break;
+                        case AUTOOTP_REGIST:
+                            b = UriBuilder.fromUri(Urls.logoutConfirm(baseUri, realm.getName()));
+                            break;
                         default:
                             b = UriBuilder.fromUri(baseUri).path(uriInfo.getPath());
                             break;

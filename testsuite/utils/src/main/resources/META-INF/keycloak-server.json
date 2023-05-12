@@ -213,7 +213,7 @@
 
     "connectionsJpa": {
         "default": {
-            "url": "${keycloak.connectionsJpa.url:jdbc:mariadb://localhost/keycloak_21_0_2}",
+            "url": "${keycloak.connectionsJpa.url:jdbc:mariadb://localhost/keycloak}",
             "driver": "${keycloak.connectionsJpa.driver:org.mariadb.jdbc.Driver}",
             "driverDialect": "${keycloak.connectionsJpa.driverDialect:}",
             "user": "${keycloak.connectionsJpa.user:keycloak}",
