@@ -32,7 +32,7 @@ import { useConfirmDialog } from "../../components/confirm-dialog/ConfirmDialog"
 
 import "./autootp-policy.css";
 
-const AUTOOTP_AUTHENTICATION_STEP = ["1Step", "2Step"] as const;
+const AUTOOTP_AUTHENTICATION_STEP = ["1step", "2step"] as const;
 
 
 const CIBA_BACKHANNEL_TOKEN_DELIVERY_MODES = ["poll", "ping"] as const;

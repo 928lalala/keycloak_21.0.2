@@ -23,8 +23,8 @@
 
   "autootpAppSettingStep": "Authentication Step",
   "autootpAppSettingSteps": {
-    "1Step": "1-Step Authentication",
-    "2Step": "2-Step Authentication"
+    "1step": "1-Step Authentication",
+    "2step": "2-Step Authentication"
   },
   "autootpAppSettingName": "Application Name",
   "autootpAppSettingDomain": "Application Domain",
