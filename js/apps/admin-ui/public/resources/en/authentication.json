@@ -5,6 +5,7 @@
   "requiredActions": "Required actions",
   "policies": "Policies",
   "passwordPolicy": "Password policy",
+  "autootpPolicy": "AutoOTP Policy",
   "otpPolicy": "OTP Policy",
   "webauthnPolicy": "Webauthn Policy",
   "webauthnPasswordlessPolicy": "Webauthn Passwordless Policy",
@@ -14,6 +15,43 @@
   "updatePasswordPolicyError": "Could not update the password policies: '{{error}}'",
   "webAuthnPolicyRpEntityName": "Relying party entity name",
   "addPolicy": "Add policy",
+
+
+  "autootpAppSettingTitle": "Application Registration",
+  "autootpReturnServerProgressTitle": "Check Registration Progress",
+  "autootpServerSettingTitle": "AutoOTP Server Setting",
+
+  "autootpAppSettingStep": "Authentication Step",
+  "autootpAppSettingSteps": {
+    "1Step": "1-Step Authentication",
+    "2Step": "2-Step Authentication"
+  },
+  "autootpAppSettingName": "Application Name",
+  "autootpAppSettingDomain": "Application Domain",
+  "autootpAppSettingIpAddress": "Application IP address",
+  "autootpAppSettingProxyServerDomain": "Proxy Server Domain",
+  "autootpAppSettingEmail": "Email",
+  "autootpReturnDomainValidationToken": "Domain Validation Token",
+  "autootpReturnServerProgress": "Server Progress",
+  "autootpServerSettingAppServerKey": "Application Server Key",
+  "autootpServerSettingAuthServerDomain": "Auth Server Domain",
+  "updateAutoOTPSuccess": "AutoOTP policy successfully updated",
+  "updateAutoOTPError": "Could not update AutoOTP policy: {{error}}",
+  "autootpServerProgressReload": "Server Progress Reload",
+  "autootpResendRegistrationEmail": "Resend Registration Email",
+  "autootpResendSettingEmail": "Resend Setting Email",
+
+  "autootpServerProgressReloadSuccess": "Server progress Reload completed.",
+  "autootpServerEmailResendSuccess": "Regist Email Resend Request completed.",
+  "autootpResendSettingsEmailSuccess": "Setting Email Resend Request completed.",
+  "autootpClearSuccess": "Server progress Reload completed.",
+
+  "autootpDeleteConfirmTitle": "Delete AutoOTP application",
+  "autootpDeleteConfirmDialog": "All registered contents will be deleted.\nAre you sure you want to delete it?",
+
+
+
+
   "otpType": "OTP type",
   "policyType": {
     "totp": "Time based",

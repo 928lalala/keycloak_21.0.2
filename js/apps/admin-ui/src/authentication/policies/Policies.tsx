@@ -7,6 +7,7 @@ import { KeycloakSpinner } from "../../components/keycloak-spinner/KeycloakSpinn
 import { useAdminClient, useFetch } from "../../context/auth/AdminClient";
 import { useRealm } from "../../context/realm-context/RealmContext";
 import { CibaPolicy } from "./CibaPolicy";
+import { AutoOTPPolicy } from "./AutoOTPPolicy";
 import { OtpPolicy } from "./OtpPolicy";
 import { PasswordPolicy } from "./PasswordPolicy";
 import { WebauthnPolicy } from "./WebauthnPolicy";
@@ -51,29 +52,36 @@ export const Policies = () => {
         <PasswordPolicy realm={realm} realmUpdated={setRealm} />
       </Tab>
       <Tab
-        id="otpPolicy"
+        id="autootpPolicy"
         eventKey={2}
+        title={<TabTitleText>{t("autootpPolicy")}</TabTitleText>}
+      >
+        <AutoOTPPolicy realm={realm} realmUpdated={setRealm} />
+      </Tab>
+      <Tab
+        id="otpPolicy"
+        eventKey={3}
         title={<TabTitleText>{t("otpPolicy")}</TabTitleText>}
       >
         <OtpPolicy realm={realm} realmUpdated={setRealm} />
       </Tab>
       <Tab
         id="webauthnPolicy"
-        eventKey={3}
+        eventKey={4}
         title={<TabTitleText>{t("webauthnPolicy")}</TabTitleText>}
       >
         <WebauthnPolicy realm={realm} realmUpdated={setRealm} />
       </Tab>
       <Tab
         id="webauthnPasswordlessPolicy"
-        eventKey={4}
+        eventKey={5}
         title={<TabTitleText>{t("webauthnPasswordlessPolicy")}</TabTitleText>}
       >
         <WebauthnPolicy realm={realm} realmUpdated={setRealm} isPasswordLess />
       </Tab>
       <Tab
         data-testid="tab-ciba-policy"
-        eventKey={5}
+        eventKey={6}
         title={<TabTitleText>{t("cibaPolicy")}</TabTitleText>}
       >
         <CibaPolicy realm={realm} realmUpdated={setRealm} />
