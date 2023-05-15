@@ -58,7 +58,7 @@
         		<div id="kc-error-meesage">
         			<p class="instruction">Email expired.</p>
         			<p>
-        				<a id="backToApplication" href="${baseUrl}">« Back to Application</a>
+        				<a id="backToApplication" href="javascript:moveHome();">« Back to Application</a>
         			</p>
         		</div>
         	</div>
@@ -74,7 +74,7 @@
         		<div id="kc-error-meesage">
         			<p class="instruction">User infomation is empty.</p>
         			<p>
-        				<a id="backToApplication" href="${baseUrl}">« Back to Application</a>
+        				<a id="backToApplication" href="javascript:moveHome();">« Back to Application</a>
         			</p>
         		</div>
         	</div>
@@ -125,7 +125,7 @@
         <div id="kc-content">
         	<div id="kc-content-wrapper">
        			<p>
-       				<a id="backToApplication" href="${baseUrl}">« Back to Application</a>
+       				<a id="backToApplication" href="javascript:moveHome();">« Back to Application</a>
        			</p>
         	</div>
         </div>

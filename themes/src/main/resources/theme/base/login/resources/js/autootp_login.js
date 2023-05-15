@@ -9,6 +9,9 @@ if(base_url !== undefined && base_url != null && base_url != "") {
 	if(base_url.substr(len-1, len) != "/" && base_url.substr(len-1, len) != "\\")
 		base_url += "/";
 }
+else {
+	base_url = "javascript:alert('Home URL is not registered.');";
+}
 
 var submit_url = $("#submit_url").val();
 if(submit_url === undefined || submit_url == null)

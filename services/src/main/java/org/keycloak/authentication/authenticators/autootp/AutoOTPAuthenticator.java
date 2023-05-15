@@ -34,8 +34,6 @@ import java.util.List;
 public class AutoOTPAuthenticator implements Authenticator, CredentialValidator<AutoOTPCredentialProvider> {
 
     protected boolean hasCookie(AuthenticationFlowContext context) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>> AutoOTPAuthenticator :: hasCookie");
-    	
         Cookie cookie = context.getHttpRequest().getHttpHeaders().getCookies().get("AUTOOTP_ANSWERED");
         boolean result = cookie != null;
         if (result) {
@@ -46,20 +44,6 @@ public class AutoOTPAuthenticator implements Authenticator, CredentialValidator<
 
     @Override
     public void authenticate(AuthenticationFlowContext context) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>> AutoOTPAuthenticator :: authenticate");
-    	
-    	UserModel userModel = context.getUser();
-        String username = userModel.getUsername();
-
-        System.out.println("userModel [" + userModel.toString() + "]");
-        System.out.println("username [" + username + "]");
-
-        /*
-        if (hasCookie(context)) {
-            context.success();
-            return;
-        }
-        */
         Response challenge = context.form()
                 .createForm("autootp-wait.ftl");
         context.challenge(challenge);
@@ -67,24 +51,9 @@ public class AutoOTPAuthenticator implements Authenticator, CredentialValidator<
 
     @Override
     public void action(AuthenticationFlowContext context) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>> AutoOTPAuthenticator :: action");
-    	/*
-        boolean validated = validateAnswer(context);
-        if (!validated) {
-            Response challenge =  context.form()
-                    .setError("badSecret")
-                    .createForm("autootp-wait.ftl");
-            context.failureChallenge(AuthenticationFlowError.INVALID_CREDENTIALS, challenge);
-            return;
-        }
-        setCookie(context);
-        context.success();
-        */
     }
 
     protected void setCookie(AuthenticationFlowContext context) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>> AutoOTPAuthenticator :: setCookie");
-    	
         AuthenticatorConfigModel config = context.getAuthenticatorConfig();
         int maxCookieAge = 60 * 60 * 24 * 30; // 30 days
         if (config != null) {
@@ -100,31 +69,11 @@ public class AutoOTPAuthenticator implements Authenticator, CredentialValidator<
     }
 
     public void addCookie(AuthenticationFlowContext context, String name, String value, String path, String domain, String comment, int maxAge, boolean secure, boolean httpOnly) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>> AutoOTPAuthenticator :: addCookie");
-    	
         HttpResponse response = context.getSession().getContext().getHttpResponse();
         StringBuilder cookieBuf = new StringBuilder();
         ServerCookie.appendCookieValue(cookieBuf, 1, name, value, path, domain, comment, maxAge, secure, httpOnly, null);
         String cookie = cookieBuf.toString();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie);
-    }
-
-    protected boolean validateAnswer(AuthenticationFlowContext context) {
-    	System.out.println(">>>>>>>>>>>>>>>>>>>>> AutoOTPAuthenticator :: validateAnswer");
-    	
-    	/*
-        MultivaluedMap<String, String> formData = context.getHttpRequest().getDecodedFormParameters();
-        String secret = formData.getFirst("secret_answer");
-        String credentialId = formData.getFirst("credentialId");
-        if (credentialId == null || credentialId.isEmpty()) {
-            credentialId = getCredentialProvider(context.getSession())
-                    .getDefaultCredential(context.getSession(), context.getRealm(), context.getUser()).getId();
-        }
-
-        UserCredentialModel input = new UserCredentialModel(credentialId, getType(context.getSession()), secret);
-        return getCredentialProvider(context.getSession()).isValid(context.getRealm(), context.getUser(), input);
-        */
-    	return false;
     }
 
     @Override

@@ -17,6 +17,9 @@ if(username === undefined || username == null)		username = "";
 if(authDomain === undefined || authDomain == null)	authDomain = "";
 if(baseUrl === undefined || baseUrl == null)		baseUrl = "";
 
+if(baseUrl == "")
+	baseUrl = "javascript:alert('Home URL is not registered.');";
+
 var autootp_terms = 0;
 var autootp_millisec = 0;
 var timeoutId1 = null;

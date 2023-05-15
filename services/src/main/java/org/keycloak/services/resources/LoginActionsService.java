@@ -537,8 +537,13 @@ public class LoginActionsService {
 		    		username = params[2];
 		    		dbAuthDomain = params[3];
 		    		dbAuthDomain = URLDecode(dbAuthDomain);
-	    			baseUrl = params[4];
-	    			baseUrl = URLDecode(baseUrl);
+		    		
+		    		if(params.length >= 5) {
+		    			baseUrl = params[4];
+		    			if(baseUrl != null)
+		    				baseUrl = baseUrl.trim();
+		    			baseUrl = URLDecode(baseUrl);
+		    		}
 		    		
 		    		Date curDate = new Date();
 		    		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
