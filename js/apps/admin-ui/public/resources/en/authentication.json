@@ -50,6 +50,25 @@
   "autootpDeleteConfirmDialog": "All registered contents will be deleted.\nAre you sure you want to delete it?",
 
 
+  "autootpReturnServerProgressSave": "Registration information review in progress...",
+  "autootpReturnServerProgress01": "Validating mail...",
+  "autootpReturnServerProgress02": "Validating registration domain...",
+  "autootpReturnServerProgress10": "AutoOTP service is running!",
+  "autootpReturnServerProgress11": "Validating deleted email...",
+
+  "autootpApiResponseCodeUndefined": "Data request error",
+  "autootpApiResponseCodeAppIDError": "Data save appID error",
+  "autootpApiResponseCodednsTxtError": "Data save dnsTxt error",
+  
+  "autootpApiResponseCode000.1": "Unknown Server error",
+  "autootpApiResponseCode000.2": "Parameter error",
+  "autootpApiResponseCode100.1": "Mail sending error",
+  "autootpApiResponseCode100.2": "Duplicate application domain",
+  "autootpApiResponseCode100.3": "Duplicate application name",
+  "autootpApiResponseCode100.4": "Duplicate proxy server domain",
+  "autootpApiResponseCode100.5": "Email unavailable",
+  "autootpApiResponseCode100.6": "After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.",
+  "autootpApiResponseCodeDefault": "Server data Exception error.",
 
 
   "otpType": "OTP type",

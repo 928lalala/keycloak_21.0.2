@@ -105,18 +105,8 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
     console.log("autootpReturnServerProgressStatus===>", autootpReturnServerProgressStatus);   
     console.log("autootpReturnServerProgressStatus != undefined===>", (autootpReturnServerProgressStatus != undefined));   
     console.log("autootpReturnServerProgressStatus.length===>", (autootpReturnServerProgressStatus.length));   
-  // setIsBtnApplicationSettingSave(false);
-
-  // setIsBtnserverProgressReload(true);
-  // setIsBtnresendRegistrationEmail(true);
-  // setIsBtnresendSetupFileEmail(true);
-
-  // setIsTextautootpServerSettingAppServerKey(true);
-  // setIsTextautootpServerSettingAuthServerDomain(true);
-
-  // setIsBtnApplicationServerSave(true);
-  // setIsBtnApplicationServerClear(true);
-	if(autootpReturnDomainValidationToken != undefined && autootpReturnDomainValidationToken.length > 0) { 
+  
+    if(autootpReturnDomainValidationToken != undefined && autootpReturnDomainValidationToken.length > 0) { 
     //	$scope.autootpAppSettingStepDisable = true;
       setIsBtnApplicationSettingSave(true);
       setIsBtnserverProgressReload(false);
@@ -125,16 +115,16 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       setIsBtnserverProgressReload(true);
     }  
   
-  setIsBtnresendRegistrationEmail(true);
-  setIsBtnresendSetupFileEmail(true);
-  
-  setIsTextautootpServerSettingAppServerKey(true);
-  setIsTextautootpServerSettingAuthServerDomain(true);
-  
-  setIsBtnApplicationServerSave(true);
-  setIsBtnApplicationServerClear(true); 
+    setIsBtnresendRegistrationEmail(true);
+    setIsBtnresendSetupFileEmail(true);
+    
+    setIsTextautootpServerSettingAppServerKey(true);
+    setIsTextautootpServerSettingAuthServerDomain(true);
+    
+    setIsBtnApplicationServerSave(true);
+    setIsBtnApplicationServerClear(true); 
 
-  if(autootpReturnServerProgressStatus != undefined && autootpReturnServerProgressStatus.length > 0) {
+    if(autootpReturnServerProgressStatus != undefined && autootpReturnServerProgressStatus.length > 0) {
       switch(autootpReturnServerProgressStatus){
         case "01" :
           setIsBtnresendRegistrationEmail(false);
@@ -168,25 +158,10 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       
     }
   
-  // setIsBtnApplicationServerSave(true);
-  // setIsBtnApplicationServerClear(true);  
-      
-  // if((autootpServerSettingAppServerKey != undefined && autootpServerSettingAppServerKey.length > 0) ||
-  //     (autootpServerSettingAuthServerDomain != undefined && autootpServerSettingAuthServerDomain.length > 0)) { 
-  //       setIsBtnApplicationServerSave(false);
-  //       setIsBtnApplicationServerClear(false);
-  //   }else{
-  //     setIsBtnApplicationServerSave(true);
-  //     setIsBtnApplicationServerClear(true);
-  //   }
+
 
   }, []);
 
-	/////////////////////////////////////////////
-	// API TEST
-	const [usersfetchs, setUsersfetchs] = useState([]);
-	// API TEST
-	/////////////////////////////////////////////
 
 
   const onDeleteSubmit = async (formValues: FormFields) => {
@@ -196,11 +171,6 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       formValues.attributes = undefined;
       console.log('attributes:')
       console.log(formValues.attributes)
-
-      //setIsTextValue1('');
-      //setIsTextValue2('');
-      // formValues.attributes.autootpAppSettingName = undefined;
-      // <formValues className="attributes"></formValues>
 
 
       await adminClient.realms.update(
@@ -220,7 +190,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
     } catch (error) {
       addError("authentication:updateAutoOTPError", error);
     } finally {
-      // window.document.getElementById('autootpAppSettingName')?.value ?? null;
+
     }
   };
 
@@ -230,10 +200,6 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onDelete = async (formValues: FormFields) => {
     
-    // if(!confirm("All registered contents will be deleted.\nAre you sure you want to delete it?")){
-    //   return;
-    // }
-
     try {
       console.log('onDelete');
       console.log('경고 메시지 알럿 후 Y/N 버튼');
@@ -245,20 +211,6 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       console.log('realmName:'+realmName);
       console.log('------------realm ------------:');
       console.log(realm);
-
-      // setValue("attributes.autootpAppSettingStep",undefined);
-      // setValue("attributes.autootpAppSettingName",undefined);
-      // setValue("attributes.autootpAppSettingDomain",undefined);
-      // setValue("attributes.autootpAppSettingIpAddress",undefined);
-      // setValue("attributes.autootpAppSettingProxyServerDomain",undefined);
-      // setValue("attributes.autootpAppSettingEmail",undefined);
-      // setValue("attributes.autootpReturnDomainValidationToken",undefined);
-      // setValue("attributes.autootpReturnServerProgress",undefined);
-      // setValue("attributes.autootpReturnServerProgressStatus",undefined);
-      // setValue("attributes.autootpServerSettingAppServerKey",undefined);
-      // setValue("attributes.autootpServerSettingAuthServerDomain",undefined);
-
-//      setIsSubmitCompleted(false);
 
 
       let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
@@ -274,14 +226,14 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
           console.log('API TEST');
           console.log(res);
           console.log(res.result);
-          if(res.result != ''){
+          let error = "";
+        if(res.result != ''){
           //  if(res.result == ''){
           
           //     var tmp_str = '{"result":{"code":"000.0", "data":{"status":"10"}}}';
           //     let objReload = JSON.parse(tmp_str).result;
             let objKey = JSON.parse(res.result);
             let code = objKey.code;
-            let error = "";
             console.log("code=" + code);
             returnCode = "" + code;
             switch(objKey.code){
@@ -291,9 +243,6 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                 break;
               case "000.0" :
                   delkey = objKey.data.delkey;
-                  ////////////////////////////////////////////////////////////////////////            
-
-
 
                   let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
                   let returnCode = "";
@@ -319,100 +268,102 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                         returnCode = "" + code;
                         switch(objKey.code){
                           case undefined :
-                            error = "Server progress Delete error~! ["+code+"]";
+                            error = t("autootpApiResponseCodeUndefined")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "000.0" :
-                            /////////////////////////// kcAutootpDelete http success process
                             onDeleteSubmit({...realm});                          
                             break;
                   
                           case "000.1" :
-                            error = "Unknown Server error ["+code+"]";
+                            error = t("autootpApiResponseCode000.1")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "000.2" :
-                            error = "Parameter error ["+code+"]";
+                            error = t("autootpApiResponseCode000.2")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "100.1" :
-                            error = "Mail sending error ["+code+"]";
+                            error = t("autootpApiResponseCode100.1")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "100.2" :
-                            error = "Duplicate application domain ["+code+"]";
+                            error = t("autootpApiResponseCode100.2")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "100.3" :
-                            error = "Duplicate application name ["+code+"]";
+                            error = t("autootpApiResponseCode100.3")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "100.4" :
-                            error = "Duplicate proxy server domain ["+code+"]";
+                            error = t("autootpApiResponseCode100.4")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "100.5" :
-                            error = "Email unavailable ["+code+"]";
+                            error = t("autootpApiResponseCode100.5")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                           case "100.6" :
-                            alert("After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.");
+                            error = t("autootpApiResponseCode100.6")+"["+code+"]";
+                            alert(error);
                             onDeleteSubmit({...realm});
                             break;
                           default : 
-                            error = "Server data delete Exception error. ["+code+"]";
+                            error = t("autootpApiResponseCodeDefault")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
                             break;
                         }
 
-                      }
+                      } else {
+                        error = t("autootpApiConnectError");
+                        addError("authentication:updateAutoOTPError",error);
+                      }                    
                     })
-                  ////////////////////////////////////////////////////////////////////////
-
-                
-                //Notifications.success("Server progress Reload completed.");
                 break;
 
               case "000.1" :
-                error = "Unknown Server error ["+code+"]";
+                error = t("autootpApiResponseCode000.1")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "000.2" :
-                error = "Parameter error ["+code+"]";
+                error = t("autootpApiResponseCode000.2")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.1" :
-                error = "Mail sending error ["+code+"]";
+                error = t("autootpApiResponseCode100.1")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.2" :
-                error = "Duplicate application domain ["+code+"]";
+                error = t("autootpApiResponseCode100.2")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.3" :
-                error = "Duplicate application name ["+code+"]";
+                error = t("autootpApiResponseCode100.3")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.4" :
-                error = "Duplicate proxy server domain ["+code+"]";
+                error = t("autootpApiResponseCode100.4")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.5" :
-                error = "Email unavailable ["+code+"]";
+                error = t("autootpApiResponseCode100.5")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.6" :
-                alert("After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.");
+                error = t("autootpApiResponseCode100.6")+"["+code+"]";
+                alert(error);
                 onDeleteSubmit({...realm});
                 break;
               default : 
-                error = "Server data delete Exception error. ["+code+"]";
+                error = t("autootpApiResponseCodeDefault")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
             }
 
-        }
-
+          } else {
+            error = t("autootpApiConnectError");
+            addError("authentication:updateAutoOTPError",error);
+          }                    
 
       })
     
@@ -420,8 +371,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       addError("authentication:updateAutoOTPError", error);
     }
   };
-  
-
+ 
 
   const [toggleDeleteDialog, DeleteConfirm] = useConfirmDialog({
     titleKey: t("autootpDeleteConfirmTitle"),
@@ -438,31 +388,20 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
   });
 
 
-
-
-
-
-
   const onSubmit = async (formValues: FormFields) => {
 	
     try {
 
+      console.log('onSubmit');
+      console.log('5개 항목 API 통신 전송');
+      console.log('API 통신 성공 시 모든 항목값 DB저장');
+      console.log('저장 완료 후 Sava, Delete 버튼 비활성화');
+      console.log('API 통신 결과값으로  토큰값 세팅, Progress는 검토중 메시지 세팅');
+      console.log('Server Progress Realod 버튼, Reload registration email 버튼 활성화');
 
-
-
-
-
-		console.log('onSubmit');
-		console.log('5개 항목 API 통신 전송');
-		console.log('API 통신 성공 시 모든 항목값 DB저장');
-		console.log('저장 완료 후 Sava, Delete 버튼 비활성화');
-		console.log('API 통신 결과값으로  토큰값 세팅, Progress는 검토중 메시지 세팅');
-		console.log('Server Progress Realod 버튼, Reload registration email 버튼 활성화');
-
-		console.log('{attributes.autootpAppSettingName}');
-		console.log('------------onSubmit 1 ------------:');
-		console.log(formValues);
-//		console.log(formValues.attributes.autootpAppSettingName);
+      console.log('{attributes.autootpAppSettingName}');
+      console.log('------------onSubmit 1 ------------:');
+      console.log(formValues);
 
 
 
@@ -531,13 +470,9 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
             console.log("code=" + code);
             returnCode = "" + code;
 
-            // objSave.code = "000.0";
-            // objSave.data.appID = "1234567890";
-            // objSave.data.dnsTxt = "이메일 검증 중...";
-            
             switch(objSave.code){
               case undefined :
-                error = "Data Save request error  ["+code+"]";
+                error = t("autootpApiResponseCodeUndefined")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "000.0" :
@@ -554,7 +489,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                 setIsBtnApplicationServerClear(true);
 
                 if(objSave.data.appID == undefined) {
-                  error = "Data save appID Error~! ["+code+"]";
+                  error = t("autootpApiResponseCodeAppIDError")+"["+code+"]";
                   addError("authentication:updateAutoOTPError",error);
                   return;
                 } else {
@@ -562,56 +497,54 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                 }
                 
                 if(objSave.data.dnsTxt == undefined) {
-                  error = "Data save dnsTxt Error~! ["+code+"]";
+                  error = t("autootpApiResponseCodednsTxtError")+"["+code+"]";
                   addError("authentication:updateAutoOTPError",error);
                   return;
                 } else {
                   setValue("attributes.autootpReturnDomainValidationToken",objSave.data.dnsTxt);
                 }
                               
-                setValue("attributes.autootpReturnServerProgress","Registration information review in progress...");
+                setValue("attributes.autootpReturnServerProgress",t("autootpReturnServerProgressSave"));
 
                 handleSubmit(onSubmit)();
-
-                //Notifications.success("Data save success.");
-                // addAlert(t("updateAutoOTPSuccess"), AlertVariant.success);
 
                 break;
   
               case "000.1" :
-                error = "Unknown Server error ["+code+"]";
+                error = t("autootpApiResponseCode000.1")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "000.2" :
-                error = "Parameter error ["+code+"]";
+                error = t("autootpApiResponseCode000.2")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.1" :
-                error = "Mail sending error ["+code+"]";
+                error = t("autootpApiResponseCode100.1")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.2" :
-                error = "Duplicate application domain ["+code+"]";
+                error = t("autootpApiResponseCode100.2")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.3" :
-                error = "Duplicate application name ["+code+"]";
+                error = t("autootpApiResponseCode100.3")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.4" :
-                error = "Duplicate proxy server domain ["+code+"]";
+                error = t("autootpApiResponseCode100.4")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.5" :
-                error = "Email unavailable ["+code+"]";
+                error = t("autootpApiResponseCode100.5")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.6" :
-                alert("After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.");
+                error = t("autootpApiResponseCode100.6")+"["+code+"]";
+                alert(error);
                 onDeleteSubmit({...realm});
                 break;
               default : 
-                error = "Server data Save Exception error. ["+code+"]";
+                error = t("autootpApiResponseCodeDefault")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               }
@@ -619,10 +552,10 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
   
         
             } else {
-              // AutoOTP DevCenter Connect error
-              error = "AutoOTP DevCenter Connect error";
+              error = t("autootpApiConnectError");
               addError("authentication:updateAutoOTPError",error);
-            }
+            }                    
+
         });  
     
     } catch (error) {
@@ -661,34 +594,36 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
             var code = objReload.code;
             console.log("code=" + code);
             returnCode = "" + code;
+            console.log("objReload.data.status===>", objReload.data.status);
+
             switch(objReload.code){
               case undefined :
-                error = "Server progress Reload error~! ["+code+"]";
+                error = t("autootpApiResponseCodeUndefined")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 setValue("attributes.autootpReturnServerProgress",error);
                 break;
               case "000.0" :
                 if(objReload.data.status == undefined || objReload.data.status.length <= 0) {
-                  error = "Server progress Reload error~! ["+code+"]";
+                  error = t("autootpApiResponseCodeUndefined")+"["+objReload.data.status+"]";
                   addError("authentication:updateAutoOTPError",error);
                   setValue("attributes.autootpReturnServerProgress",error);
-                  return;
+                  break;
                 } else {
                   switch(objReload.data.status){
                     case "01" :
-                      setValue("attributes.autootpReturnServerProgress","Validating mail...");
+                      setValue("attributes.autootpReturnServerProgress",t("autootpReturnServerProgress01"));
                       setValue("attributes.autootpReturnServerProgressStatus", objReload.data.status);
                       setIsBtnresendRegistrationEmail(false);
                       setIsBtnresendSetupFileEmail(true);
                       break;
                     case "02" :
-                      setValue("attributes.autootpReturnServerProgress","Validating registration domain...");
+                      setValue("attributes.autootpReturnServerProgress",t("autootpReturnServerProgress02"));
                       setValue("attributes.autootpReturnServerProgressStatus", objReload.data.status);
                       setIsBtnresendRegistrationEmail(true);
                       setIsBtnresendSetupFileEmail(true);
                       break;
                     case "10" :
-                      setValue("attributes.autootpReturnServerProgress","AutoOTP service is running!");
+                      setValue("attributes.autootpReturnServerProgress",t("autootpReturnServerProgress10"));
                       setValue("attributes.autootpReturnServerProgressStatus", objReload.data.status);
                       setIsBtnserverProgressReload(true);
                       setIsBtnresendRegistrationEmail(true);
@@ -701,69 +636,64 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                       setIsBtnApplicationServerClear(false);
                       break;
                     case "11" :
-                      setValue("attributes.autootpReturnServerProgress","Validating deleted email...");
+                      setValue("attributes.autootpReturnServerProgress",t("autootpReturnServerProgress11"));
                       break;
                     default :
                       setValue("attributes.autootpReturnServerProgress","Exception status ["+objReload.data.status+"]");
                       break;
                   }
-                  //Notifications.success("Server progress Reload completed.");
                   addAlert(t("autootpServerProgressReloadSuccess"), AlertVariant.success);
                 }
                 handleSubmit(onSubmit)();
-                //Notifications.success("Server progress Reload completed.");
                 break;
 
               case "000.1" :
-                error = "Unknown Server error ["+code+"]";
+                error = t("autootpApiResponseCode000.1")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "000.2" :
-                error = "Parameter error ["+code+"]";
+                error = t("autootpApiResponseCode000.2")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.1" :
-                error = "Mail sending error ["+code+"]";
+                error = t("autootpApiResponseCode100.1")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.2" :
-                error = "Duplicate application domain ["+code+"]";
+                error = t("autootpApiResponseCode100.2")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.3" :
-                error = "Duplicate application name ["+code+"]";
+                error = t("autootpApiResponseCode100.3")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.4" :
-                error = "Duplicate proxy server domain ["+code+"]";
+                error = t("autootpApiResponseCode100.4")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.5" :
-                error = "Email unavailable ["+code+"]";
+                error = t("autootpApiResponseCode100.5")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
               case "100.6" :
-                alert("After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.");
+                error = t("autootpApiResponseCode100.6")+"["+code+"]";
+                alert(error);
                 onDeleteSubmit({...realm});
                 break;
               default : 
-                error = "Server progress Reload error. ["+code+"]";
+              error = t("autootpApiResponseCodeDefault")+"["+code+"]";
                 addError("authentication:updateAutoOTPError",error);
                 break;
 
             }
 
           } else {
-            // AutoOTP DevCenter Connect error
-            error = "AutoOTP DevCenter Connect error";
+            error = t("autootpApiConnectError");
             addError("authentication:updateAutoOTPError",error);
-          }
+          }                    
+
       });              
       
-      // setIsBtnApplicationSettingSave(true);
-
-
-    
     } catch (error) {
       addError("authentication:updateAutoOTPError", error);
     }
@@ -797,7 +727,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
           returnCode = "" + code;
           switch(objReload.code){
             case undefined :
-              error = "Email Resend Request error~! ["+code+"]";
+              error = t("autootpApiResponseCodeUndefined")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "000.0" :
@@ -805,49 +735,47 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               break;
 
             case "000.1" :
-              error = "Unknown Server error ["+code+"]";
+              error = t("autootpApiResponseCode000.1")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "000.2" :
-              error = "Parameter error ["+code+"]";
+              error = t("autootpApiResponseCode000.2")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.1" :
-              error = "Mail sending error ["+code+"]";
+              error = t("autootpApiResponseCode100.1")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.2" :
-              error = "Duplicate application domain ["+code+"]";
+              error = t("autootpApiResponseCode100.2")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.3" :
-              error = "Duplicate application name ["+code+"]";
+              error = t("autootpApiResponseCode100.3")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.4" :
-              error = "Duplicate proxy server domain ["+code+"]";
+              error = t("autootpApiResponseCode100.4")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.5" :
-              error = "Email unavailable ["+code+"]";
+              error = t("autootpApiResponseCode100.5")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.6" :
-              alert("After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.");
+              error = t("autootpApiResponseCode100.6")+"["+code+"]";
+              alert(error);
               onDeleteSubmit({...realm});
               break;
             default : 
-              error = "Email Resend Request error. ["+code+"]";
+              error = t("autootpApiResponseCodeDefault")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
-
             }
-      
           } else {
-            // AutoOTP DevCenter Connect error
-            error = "AutoOTP DevCenter Connect error";
+            error = t("autootpApiConnectError");
             addError("authentication:updateAutoOTPError",error);
-          }
+          }                    
       });  
     
     } catch (error) {
@@ -882,7 +810,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
           returnCode = "" + code;
           switch(objReload.code){
             case undefined :
-              error = "Email Resend Request error~! ["+code+"]";
+              error = t("autootpApiResponseCodeUndefined")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "000.0" :
@@ -890,54 +818,48 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               break;
 
             case "000.1" :
-              error = "Unknown Server error ["+code+"]";
+              error = t("autootpApiResponseCode000.1")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "000.2" :
-              error = "Parameter error ["+code+"]";
+              error = t("autootpApiResponseCode000.2")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.1" :
-              error = "Mail sending error ["+code+"]";
+              error = t("autootpApiResponseCode100.1")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.2" :
-              error = "Duplicate application domain ["+code+"]";
+              error = t("autootpApiResponseCode100.2")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.3" :
-              error = "Duplicate application name ["+code+"]";
+              error = t("autootpApiResponseCode100.3")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.4" :
-              error = "Duplicate proxy server domain ["+code+"]";
+              error = t("autootpApiResponseCode100.4")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.5" :
-              error = "Email unavailable ["+code+"]";
+              error = t("autootpApiResponseCode100.5")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
             case "100.6" :
-              alert("After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.");
+              error = t("autootpApiResponseCode100.6")+"["+code+"]";
+              alert(error);
               onDeleteSubmit({...realm});
               break;
             default : 
-              error = "Setting email Resend Request error~! ["+code+"]";
+              error = t("autootpApiResponseCodeDefault")+"["+code+"]";
               addError("authentication:updateAutoOTPError",error);
               break;
-
             }
-
-
-      
           } else {
-            // AutoOTP DevCenter Connect error
-            error = "AutoOTP DevCenter Connect error";
+            error = t("autootpApiConnectError");
             addError("authentication:updateAutoOTPError",error);
-          }
+          }                    
       });  
-				
-    
     } catch (error) {
       addError("authentication:updateAutoOTPError", error);
     }
@@ -946,10 +868,9 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onClear = async (formValues: FormFields) => {
     try {
-		console.log('onClear');
-		console.log('autootpServerSettingAppServerKey, autootpServerSettingAuthServerDomain 값 공백처리 또는 reload');
-		console.log('DB저장 기능은 필요없음');
-		
+      console.log('onClear');
+      console.log('autootpServerSettingAppServerKey, autootpServerSettingAuthServerDomain 값 공백처리 또는 reload');
+      console.log('DB저장 기능은 필요없음');
 		
       addAlert(t("autootpClearSuccess"), AlertVariant.success);
     
@@ -958,15 +879,8 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
     }
   };
 
-
   return (
     <PageSection variant="light">
-      {/* 
-    <PageSection variant="light" className="pf-u-p-0">
-        <h1 className="kc-linked-idps">
-          {t("autootpAppSettingTitle")}
-        </h1>
-      */}
 
       <DeleteConfirm />
 
@@ -1054,11 +968,11 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               isReadOnly={isBtnApplicationSettingSave}
               placeholder="ex) Sample Name"
               {...register("attributes.autootpAppSettingName", {
-				required: {
-                  value: true,
-                  message: t("common:required"),
-                },
-			})}
+                  required: {
+                            value: true,
+                            message: t("common:required"),
+                          },
+        			})}
             />
           </FormGroup>
 
@@ -1079,11 +993,11 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               isReadOnly={isBtnApplicationSettingSave}
               placeholder="ex) www.samplesite.com"
               {...register("attributes.autootpAppSettingDomain", {
-				required: {
-                  value: true,
-                  message: t("common:required"),
-                },
-			})}
+                  required: {
+                            value: true,
+                            message: t("common:required"),
+                          },
+                })}
             />
           </FormGroup>
 
@@ -1104,11 +1018,11 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               isReadOnly={isBtnApplicationSettingSave}
               placeholder="ex) 123.12.34.123"
               {...register("attributes.autootpAppSettingIpAddress", {
-				required: {
-                  value: true,
-                  message: t("common:required"),
-                },
-			})}
+                  required: {
+                            value: true,
+                            message: t("common:required"),
+                          },
+                })}
             />
           </FormGroup>
 
@@ -1129,11 +1043,11 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               isReadOnly={isBtnApplicationSettingSave}
               placeholder="ex) proxy.samplesite.com"
               {...register("attributes.autootpAppSettingProxyServerDomain", {
-				required: {
-                  value: true,
-                  message: t("common:required"),
-                },
-			})}
+                  required: {
+                            value: true,
+                            message: t("common:required"),
+                          },
+                })}
             />
           </FormGroup>
 
@@ -1156,11 +1070,11 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               type="email"
               placeholder="ex) email@samplesite.com"
               {...register("attributes.autootpAppSettingEmail", {
-				required: {
-                  value: true,
-                  message: t("common:required"),
-                },
-			})}
+                  required: {
+                            value: true,
+                            message: t("common:required"),
+                          },
+                })}
             />
           </FormGroup>
 
@@ -1212,7 +1126,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               isReadOnly
               data-testid="autootpReturnDomainValidationToken"
               {...register("attributes.autootpReturnDomainValidationToken", {
-			})}
+			          })}
             />
           </FormGroup>
 
@@ -1232,7 +1146,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               isReadOnly
               data-testid="autootpReturnServerProgress"
               {...register("attributes.autootpReturnServerProgress", {
-			})}
+			          })}
             />
           </FormGroup>
 
@@ -1270,9 +1184,6 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
           </Button>
         </ActionGroup>
   
-  {/* 
-        <h1 className="kc-linked-idps">{t("autootpServerSettingTitle")}</h1>
-  */}
       <div className="pf-u-p-0">
       <FormPanel title={t("autootpServerSettingTitle")} className="kc-linked-idps">
       </FormPanel>
@@ -1295,7 +1206,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               data-testid="autootpServerSettingAppServerKey"
               isDisabled={isTextautootpServerSettingAppServerKey}
               {...register("attributes.autootpServerSettingAppServerKey", {
-			})}
+          			})}
             />
           </FormGroup>
 
@@ -1317,7 +1228,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
               data-testid="autootpServerSettingAuthServerDomain"
               isDisabled={isTextautootpServerSettingAuthServerDomain}
               {...register("attributes.autootpServerSettingAuthServerDomain", {
-			})}
+			          })}
             />
           </FormGroup>
 
@@ -1332,17 +1243,6 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
           >
             {t("common:save")}
           </Button>
-          {/* 
-          <Button
-            data-testid="clear"
-            type="button"
-            variant="secondary"
-            isDisabled={isBtnApplicationServerClear}
-            onClick={() => onClear({ ...realm })}
-          >
-            {t("common:clear")}
-          </Button>
-          */}
 
           <Button
             data-testid="clear"
