@@ -69,6 +69,7 @@
   "autootpApiResponseCode100.5": "Email unavailable",
   "autootpApiResponseCode100.6": "After 3 days of registration, it will be automatically deleted from the server.\nPlease register again.",
   "autootpApiResponseCodeDefault": "Server data Exception error.",
+  "autootpApiConnectError": "AutoOTP DevCenter Connect error",
 
 
   "otpType": "OTP type",
