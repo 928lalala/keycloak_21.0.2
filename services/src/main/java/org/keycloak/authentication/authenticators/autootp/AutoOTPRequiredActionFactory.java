@@ -31,7 +31,7 @@ public class AutoOTPRequiredActionFactory implements RequiredActionFactory {
 
     @Override
     public String getDisplayText() {
-        return "AutoOTP Login (DisplayText)";
+        return "AutoOTP Login";
     }
 
     @Override
