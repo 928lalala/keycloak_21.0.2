@@ -35,11 +35,11 @@ import "./autootp-policy.css";
 const AUTOOTP_AUTHENTICATION_STEP = ["1step", "2step"] as const;
 
 
-const CIBA_BACKHANNEL_TOKEN_DELIVERY_MODES = ["poll", "ping"] as const;
-const CIBA_EXPIRES_IN_MIN = 10;
-const CIBA_EXPIRES_IN_MAX = 600;
-const CIBA_INTERVAL_MIN = 0;
-const CIBA_INTERVAL_MAX = 600;
+// const CIBA_BACKHANNEL_TOKEN_DELIVERY_MODES = ["poll", "ping"] as const;
+// const CIBA_EXPIRES_IN_MIN = 10;
+// const CIBA_EXPIRES_IN_MAX = 600;
+// const CIBA_INTERVAL_MIN = 0;
+// const CIBA_INTERVAL_MAX = 600;
 
 type AutoOTPPolicyProps = {
   realm: RealmRepresentation;
@@ -95,16 +95,16 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
     const autootpReturnDomainValidationToken = getValues("attributes.autootpReturnDomainValidationToken"); 
     const autootpReturnServerProgressStatus = getValues("attributes.autootpReturnServerProgressStatus"); 
-    const autootpServerSettingAppServerKey = getValues("attributes.autootpServerSettingAppServerKey"); 
-    const autootpServerSettingAuthServerDomain = getValues("attributes.autootpServerSettingAuthServerDomain"); 
+    // const autootpServerSettingAppServerKey = getValues("attributes.autootpServerSettingAppServerKey"); 
+    // const autootpServerSettingAuthServerDomain = getValues("attributes.autootpServerSettingAuthServerDomain"); 
 
-    console.log("useEffect==============>");   
-    console.log("autootpReturnDomainValidationToken===>", autootpReturnDomainValidationToken);   
-    console.log("autootpReturnDomainValidationToken != undefined===>", (autootpReturnDomainValidationToken != undefined));   
-    console.log("autootpReturnDomainValidationToken.length===>", (autootpReturnDomainValidationToken.length));   
-    console.log("autootpReturnServerProgressStatus===>", autootpReturnServerProgressStatus);   
-    console.log("autootpReturnServerProgressStatus != undefined===>", (autootpReturnServerProgressStatus != undefined));   
-    console.log("autootpReturnServerProgressStatus.length===>", (autootpReturnServerProgressStatus.length));   
+    // console.log("useEffect==============>");   
+    // console.log("autootpReturnDomainValidationToken===>", autootpReturnDomainValidationToken);   
+    // console.log("autootpReturnDomainValidationToken != undefined===>", (autootpReturnDomainValidationToken != undefined));   
+    // console.log("autootpReturnDomainValidationToken.length===>", (autootpReturnDomainValidationToken.length));   
+    // console.log("autootpReturnServerProgressStatus===>", autootpReturnServerProgressStatus);   
+    // console.log("autootpReturnServerProgressStatus != undefined===>", (autootpReturnServerProgressStatus != undefined));   
+    // console.log("autootpReturnServerProgressStatus.length===>", (autootpReturnServerProgressStatus.length));   
   
     if(autootpReturnDomainValidationToken != undefined && autootpReturnDomainValidationToken.length > 0) { 
     //	$scope.autootpAppSettingStepDisable = true;
@@ -166,11 +166,11 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onDeleteSubmit = async (formValues: FormFields) => {
     try {
-      console.log('onDelete - formValues:', formValues)
-      console.log('onDelete - realmName:', realmName)
+      // console.log('onDelete - formValues:', formValues)
+      // console.log('onDelete - realmName:', realmName)
       formValues.attributes = undefined;
-      console.log('attributes:')
-      console.log(formValues.attributes)
+      // console.log('attributes:')
+      // console.log(formValues.attributes)
 
 
       await adminClient.realms.update(
@@ -201,16 +201,16 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
   const onDelete = async (formValues: FormFields) => {
     
     try {
-      console.log('onDelete');
-      console.log('경고 메시지 알럿 후 Y/N 버튼');
-      console.log('Delete API 통신');
-      console.log('API 통신 성공 시 모든 항목값 공백처리 후 DB저장');
+      // console.log('onDelete');
+      // console.log('경고 메시지 알럿 후 Y/N 버튼');
+      // console.log('Delete API 통신');
+      // console.log('API 통신 성공 시 모든 항목값 공백처리 후 DB저장');
       
     
       
-      console.log('realmName:'+realmName);
-      console.log('------------realm ------------:');
-      console.log(realm);
+      // console.log('realmName:'+realmName);
+      // console.log('------------realm ------------:');
+      // console.log(realm);
 
 
       let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
@@ -223,18 +223,18 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       fetch(paramStr, {
           method : "GET"   
       }).then(res=>res.json()).then(res=>{
-          console.log('API TEST');
-          console.log(res);
-          console.log(res.result);
-          let error = "";
+        // console.log('API TEST');
+        // console.log(res);
+        // console.log(res.result);
+        let error = "";
         if(res.result != ''){
           //  if(res.result == ''){
           
-          //     var tmp_str = '{"result":{"code":"000.0", "data":{"status":"10"}}}';
-          //     let objReload = JSON.parse(tmp_str).result;
+            // let tmp_str = '{"result":{"code":"100.3", "data":{"status":"10"}}}';
+            // let objKey = JSON.parse(tmp_str).result;
             let objKey = JSON.parse(res.result);
             let code = objKey.code;
-            console.log("code=" + code);
+            // console.log("code=" + code);
             returnCode = "" + code;
             switch(objKey.code){
               case undefined :
@@ -254,19 +254,18 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                   fetch(paramStr, {
                       method : "GET"   
                   }).then(res=>res.json()).then(res=>{
-                      console.log('API TEST');
-                      console.log(res);
-                      console.log(res.result);
+                      // console.log('API TEST');
+                      // console.log(res);
+                      // console.log(res.result);
                       if(res.result != ''){
-                      //  if(res.result == ''){
                       
-                      //     var tmp_str = '{"result":{"code":"000.0", "data":{"status":"10"}}}';
-                      //     let objReload = JSON.parse(tmp_str).result;
-                        let objKey = JSON.parse(res.result);
-                        let code = objKey.code;
-                        console.log("code=" + code);
+                        //var tmp_str = '{"result":{"code":"", "data":{"status":"10"}}}';
+                        //let objDel = JSON.parse(tmp_str).result;
+                        let objDel = JSON.parse(res.result);
+                        let code = objDel.code;
+                        // console.log("code=" + code);
                         returnCode = "" + code;
-                        switch(objKey.code){
+                        switch(objDel.code){
                           case undefined :
                             error = t("autootpApiResponseCodeUndefined")+"["+code+"]";
                             addError("authentication:updateAutoOTPError",error);
@@ -392,16 +391,16 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 	
     try {
 
-      console.log('onSubmit');
-      console.log('5개 항목 API 통신 전송');
-      console.log('API 통신 성공 시 모든 항목값 DB저장');
-      console.log('저장 완료 후 Sava, Delete 버튼 비활성화');
-      console.log('API 통신 결과값으로  토큰값 세팅, Progress는 검토중 메시지 세팅');
-      console.log('Server Progress Realod 버튼, Reload registration email 버튼 활성화');
+      // console.log('onSubmit');
+      // console.log('5개 항목 API 통신 전송');
+      // console.log('API 통신 성공 시 모든 항목값 DB저장');
+      // console.log('저장 완료 후 Sava, Delete 버튼 비활성화');
+      // console.log('API 통신 결과값으로  토큰값 세팅, Progress는 검토중 메시지 세팅');
+      // console.log('Server Progress Realod 버튼, Reload registration email 버튼 활성화');
 
-      console.log('{attributes.autootpAppSettingName}');
-      console.log('------------onSubmit 1 ------------:');
-      console.log(formValues);
+      // console.log('{attributes.autootpAppSettingName}');
+      // console.log('------------onSubmit 1 ------------:');
+      // console.log(formValues);
 
 
 
@@ -432,13 +431,13 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onApplicationSettingSave = async () => {
     try {
-      console.log('onApplicationSettingSave');
-      console.log('Save API 통신');
-      console.log('Progress 상태 변경 후 DB저장');
-      console.log('Setting 입력항목 비활성화');
-      console.log('Save 버튼 비활성화');
-      console.log('토큰값, 서버상태, 서버리턴값 세팅');
-      console.log('Reload, 등록검증메일 버튼 활성화');
+      // console.log('onApplicationSettingSave');
+      // console.log('Save API 통신');
+      // console.log('Progress 상태 변경 후 DB저장');
+      // console.log('Setting 입력항목 비활성화');
+      // console.log('Save 버튼 비활성화');
+      // console.log('토큰값, 서버상태, 서버리턴값 세팅');
+      // console.log('Reload, 등록검증메일 버튼 활성화');
 		
 
       let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
@@ -454,9 +453,9 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       fetch(paramStr, {
           method : "GET"   
       }).then(res=>res.json()).then(res=>{
-          console.log('API TEST');
-          console.log(res);
-          console.log(res.result);
+          // console.log('API TEST');
+          // console.log(res);
+          // console.log(res.result);
           let error = "";
 
           if(res.result != ''){
@@ -467,7 +466,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
             let objSave = JSON.parse(res.result);
             let code = objSave.code;
 
-            console.log("code=" + code);
+            // console.log("code=" + code);
             returnCode = "" + code;
 
             switch(objSave.code){
@@ -566,10 +565,10 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onServerProgressReload = async (formValues: FormFields) => {
     try {
-      console.log('onServerProgressReload');
-      console.log('Reload API 통신');
-      console.log('Progress 상태 변경 후 DB저장');
-      console.log('Progress 상태가 검토완료이면 Resend setting Email 버튼 활성화');
+      // console.log('onServerProgressReload');
+      // console.log('Reload API 통신');
+      // console.log('Progress 상태 변경 후 DB저장');
+      // console.log('Progress 상태가 검토완료이면 Resend setting Email 버튼 활성화');
       
       let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
       let returnCode = "";
@@ -580,9 +579,9 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
       fetch(paramStr, {
           method : "GET"   
       }).then(res=>res.json()).then(res=>{
-          console.log('API TEST');
-          console.log(res);
-          console.log(res.result);
+          // console.log('API TEST');
+          // console.log(res);
+          // console.log(res.result);
           let error = "";
 
           if(res.result != ''){
@@ -592,9 +591,9 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
           //     let objReload = JSON.parse(tmp_str).result;
             let objReload = JSON.parse(res.result);
             var code = objReload.code;
-            console.log("code=" + code);
+            // console.log("code=" + code);
             returnCode = "" + code;
-            console.log("objReload.data.status===>", objReload.data.status);
+            // console.log("objReload.data.status===>", objReload.data.status);
 
             switch(objReload.code){
               case undefined :
@@ -701,8 +700,8 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onResendRegistrationEmail = async (formValues: FormFields) => {
     try {
-		console.log('onResendRegistrationEmail');
-		console.log('검즘 이메일 재요청 API 통신');
+		// console.log('onResendRegistrationEmail');
+		// console.log('검즘 이메일 재요청 API 통신');
 		
 
     let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
@@ -714,16 +713,16 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
     fetch(paramStr, {
         method : "GET"   
     }).then(res=>res.json()).then(res=>{
-        console.log('API TEST');
-        console.log(res);
-        console.log(res.result);
+        // console.log('API TEST');
+        // console.log(res);
+        // console.log(res.result);
         let error = "";
 
         if(res.result != ''){
         
           let objReload = JSON.parse(res.result);
           let code = objReload.code;
-          console.log("code=" + code);
+          // console.log("code=" + code);
           returnCode = "" + code;
           switch(objReload.code){
             case undefined :
@@ -785,8 +784,8 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
 
   const onResendSettingsEmail = async (formValues: FormFields) => {
     try {
-		console.log('onResendSettingsEmail');
-		console.log('서버세팅 AP파일 첨부 이메일 재요청 API 통신');
+		// console.log('onResendSettingsEmail');
+		// console.log('서버세팅 AP파일 첨부 이메일 재요청 API 통신');
 		
     let paramStr = "/auth/realms/master/protocol/openid-connect/autootp-policy-api"; // master로 저장됨
     let returnCode = "";
@@ -797,16 +796,16 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
     fetch(paramStr, {
         method : "GET"   
     }).then(res=>res.json()).then(res=>{
-        console.log('API TEST');
-        console.log(res);
-        console.log(res.result);
+        // console.log('API TEST');
+        // console.log(res);
+        // console.log(res.result);
         let error = "";
 
         if(res.result != ''){
         
           let objReload = JSON.parse(res.result);
           let code = objReload.code;
-          console.log("code=" + code);
+          // console.log("code=" + code);
           returnCode = "" + code;
           switch(objReload.code){
             case undefined :
@@ -866,18 +865,18 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
   };
 
 
-  const onClear = async (formValues: FormFields) => {
-    try {
-      console.log('onClear');
-      console.log('autootpServerSettingAppServerKey, autootpServerSettingAuthServerDomain 값 공백처리 또는 reload');
-      console.log('DB저장 기능은 필요없음');
+  // const onClear = async (formValues: FormFields) => {
+  //   try {
+  //     // console.log('onClear');
+  //     // console.log('autootpServerSettingAppServerKey, autootpServerSettingAuthServerDomain 값 공백처리 또는 reload');
+  //     // console.log('DB저장 기능은 필요없음');
 		
-      addAlert(t("autootpClearSuccess"), AlertVariant.success);
+  //     addAlert(t("autootpClearSuccess"), AlertVariant.success);
     
-    } catch (error) {
-      addError("authentication:updateAutoOTPError", error);
-    }
-  };
+  //   } catch (error) {
+  //     addError("authentication:updateAutoOTPError", error);
+  //   }
+  // };
 
   return (
     <PageSection variant="light">
@@ -920,7 +919,7 @@ export const AutoOTPPolicy = ({ realm, realmUpdated }: AutoOTPPolicyProps) => {
                   setAutootpAppSettingStepOpen(false);
                   field.onChange(value.toString());
                   if(isBtnApplicationSettingSave){
-                    console.log('autootpAppSettingStep Setp 변경');
+                    // console.log('autootpAppSettingStep Setp 변경');
                     onApplicationStepSave();
                     setIsBtnApplicationSettingSave(true);
                   }
