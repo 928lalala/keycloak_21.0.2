@@ -13,16 +13,16 @@
 
 
 
-  "autootpAppSettingStep": "autootpAppSettingStep help text.",
-  "autootpAppSettingName": "Application Name help text.",
-  "autootpAppSettingDomain": "Application Domain help text.",
-  "autootpAppSettingIpAddress": "Application IP address help text.",
-  "autootpAppSettingProxyServerDomain": "Proxy Server Domain help text.",
-  "autootpAppSettingEmail": "Email help text.",
-  "autootpReturnDomainValidationToken": "Domain Validation Token help text.",
-  "autootpReturnServerProgress": "Server Progress help text.",
-  "autootpServerSettingAppServerKey": "Application Server Key help text.",
-  "autootpServerSettingAuthServerDomain": "Auth Server Domain",
+  "autootpAppSettingStep": "Determines the authentication level of AutoOTP. In step 2, OTP authentication is performed after ID and password, and in step 1, authentication is performed using ID and OTP instead of ID and password.",
+  "autootpAppSettingName": "Enter the name of the application.",
+  "autootpAppSettingDomain": "Enter the actual domain address where the application runs. Duplicate domain addresses cannot be registered.",
+  "autootpAppSettingIpAddress": "Enter the actual IP address where the application runs.",
+  "autootpAppSettingProxyServerDomain": "Enter the domain address of the proxy server where the AutoOTP server will be installed.",
+  "autootpAppSettingEmail": "Enter the email address of the person in charge of managing the application and AutoOTP. You can use the AutoOTP service only when your email is verified.",
+  "autootpReturnDomainValidationToken": "When the application registration is completed, the token value to verify whether the registered domain is a valid address is output. This token value must be added to the DNS TXT Record value of the registered domain to complete domain validation.",
+  "autootpReturnServerProgress": "Check the verification level of registered applications. The verification step goes through email verification and domain verification and when verification is finally completed, 'AutoOTP service is running!' is printed out, and the Setting.ap file required for AutoOTP installation is sent to the email address of the person in charge. If you do not receive the email, you can request a resend by clicking the 'Resend Setting Email' button.",
+  "autootpServerSettingAppServerKey": "This is an item to be entered after installing the AutoOTP server, You can check it through the key change button on the Setting >> Application Server screen of the installed AutoOTP manager web page.",
+  "autootpServerSettingAuthServerDomain": "This is an item to be entered after installing the AutoOTP server, Among the installed AutoOTP servers, enter the domain address of the authentication server.",
 
 
   "otpHashAlgorithm": "What hashing algorithm should be used to generate the OTP.",
