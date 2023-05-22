@@ -182,16 +182,21 @@ public class FreeMarkerEmailTemplateProvider implements EmailTemplateProvider {
     	link = uriInfo.getBaseUri() + link;
     	attributes.put("autootpLink", link);
 
+    	String encParam = "";
     	String baseUrl = (String) attributes.get("baseUrl");
     	long expirationInMinutes = realm.getActionTokenGeneratedByUserLifespan() / 60;	// Action tokens : User-Initiated Action Lifespan
-    	String autootpRegParam = dateTime + "|||" + expirationInMinutes + "|||" + username + "|||" + URLEncode(dbAuthDomain) + "|||" + URLEncode(baseUrl);
-    	String encParam = getEncryptAES(autootpRegParam, dbSecretKey.getBytes());
-    	encParam = encParam.replaceAll("\\+", "_");
+    	if(dbBrowserFlowAlias.equals("AUTOOTP")) {
+	    	String autootpRegParam = dateTime + "|||" + expirationInMinutes + "|||" + username + "|||" + URLEncode(dbAuthDomain) + "|||" + URLEncode(baseUrl);
+	    	encParam = getEncryptAES(autootpRegParam, dbSecretKey.getBytes());
+	    	encParam = encParam.replaceAll("\\+", "_");
+    	}
+    	else {
+    		encParam = "";
+    	}
     	attributes.put("autootpRegParam", encParam);
     	
     	String strExpirationInMinutes = format(expirationInMinutes * 60);
     	attributes.put("strExpiration", strExpirationInMinutes);
-
     	
         return this;
     }
