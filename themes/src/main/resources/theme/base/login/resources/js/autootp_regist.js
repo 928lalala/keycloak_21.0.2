@@ -1,3 +1,9 @@
+var oneclick = $("#oneclick").val();
+var link = $("#link").val();
+
+if(oneclick === undefined || oneclick == null)		oneclick = "";
+if(link === undefined || link == null)				link = "";
+
 var gapMinute = 0;
 var expirationInMinutes = 0;
 
@@ -46,17 +52,14 @@ function showAlert(msg) {
 }
 
 function AutoOtpManageRestAPI() {
-	/*
-	 * 1. AutoOTP 등록여부 확인
-	 * 2. 가입 시 해지화면, 미가입 시 등록화면 출력
-	 * 3. 미가입 시 등록요청
-	 * 4. 1초 주기로 가입여부 체크 --> 가입확인되면 완료처리
-	 */
-	 
 	var isReg = checkAutoOTPReg();
 	//console.log("isReg = " + isReg);
 	
 	if(isReg == "T") {
+		if(oneclick == "T" && link != "") {
+			location.href = link;
+		}
+		
 		$("#autootp_content").css("height", "200px");
 		$("#cancel_qr").css("display", "block");
 	}
@@ -66,7 +69,7 @@ function AutoOtpManageRestAPI() {
 	}
 }
 
-// 가입여부 체크
+// Check user regstered
 function checkAutoOTPReg() {
 	//console.log("----- checkAutoOTPReg() -----");
 	
@@ -197,7 +200,12 @@ function regAutoOTPRepeat() {
 			
 			alert("Registration is complete.");
 			
-			moveHome();
+			if(oneclick == "T" && link != "") {
+				location.href = link;
+			}
+			else {
+				moveHome();
+			}
 		}
 		else {
 			timeoutId1 = setTimeout(regAutoOTPRepeat, 1500);

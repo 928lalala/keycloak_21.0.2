@@ -5,28 +5,10 @@
 	<#elseif section = "form">
 	<div id="kc-form">
 		<div id="kc-form-wrapper">
-			<!--
-			Realm - name [${realm.name!''}] / displayName [${realm.displayName!''}]
-			<br>[${realm.attributeautootpAppSettingDomain!"attributeautootpAppSettingDomain empty!"}]
-			<br>[${realm.attributeautootpAppSettingEmail!"attributeautootpAppSettingEmail empty!"}]
-			<br>[${realm.attributeautootpAppSettingIpAddress!"attributeautootpAppSettingIpAddress empty!"}]
-			<br>[${realm.attributeautootpAppSettingName!"attributeautootpAppSettingName empty!"}]
-			<br>[${realm.attributeautootpAppSettingProxyServerDomain!"attributeautootpAppSettingProxyServerDomain empty!"}]
-			<br>[${realm.attributeautootpAppSettingStep!"attributeautootpAppSettingStep empty!"}]
-			<br>[${realm.attributeautootpReturnDomainValidationToken!"attributeautootpReturnDomainValidationToken empty!"}]
-			<br>[${realm.attributeautootpReturnServerProgress!"attributeautootpReturnServerProgress empty!"}]
-			<br>[${realm.attributeautootpServerSettingAppServerKey!"attributeautootpServerSettingAppServerKey empty!"}]
-			<br>[${realm.attributeautootpServerSettingAuthServerDomain!"attributeautootpServerSettingAuthServerDomain empty!"}]
-			<br>[${realm.browserFlowId!"browserFlowId empty!"}]
-			<br>[${realm.browserFlowAlias!"browserFlowAlias empty!"}]
-			-->
 			<#if realm.password>
-	        
 	        	<input type="hidden" id="browser_flow_id" name="browser_flow_id" value="${realm.browserFlowAlias!''}">
 	        	<input type="hidden" id="submit_url" name="submit_url" value="${url.loginAction}">
-	        	
 	            <form id="kc-form-login" name="kc-form-login" onsubmit="" action="" method="post">
-
 					<input type="hidden" id="base_url" name="base_url" value="${client.baseUrl!''}">
 					<input type="hidden" id="page_set" name="page_set" value="login">
 					<input type="hidden" id="page_config" name="page_config" value="">
@@ -34,6 +16,23 @@
 					<input type="hidden" id="login_step" name="login_step" value="${realm.attributeautootpAppSettingStep!''}">
 					<input type="hidden" id="login_flow" name="login_flow" value="">
 					<input type="hidden" id="autootp_info" name="autootp_info" value="">
+					
+					<input type="hidden" id="backToLogin" name="backToLogin" value='${msg("backToLogin")}'>
+					<input type="hidden" id="backToApplication" name="backToApplication" value='${msg("backToApplication")}'>
+					
+					<input type="hidden" id="AutoOTPSignIn" name="AutoOTPSignIn" value='${msg("AutoOTPSignIn")}'>
+					<input type="hidden" id="HomeURLnotRegistered" name="HomeURLnotRegistered" value='${msg("HomeURLnotRegistered")}'>
+					<input type="hidden" id="AutoOTPEmailSent" name="AutoOTPEmailSent" value='${msg("AutoOTPEmailSent")}'>
+					<input type="hidden" id="doTryAgain" name="doTryAgain" value='${msg("doTryAgain")}'>
+					<input type="hidden" id="FailedUnregister" name="FailedUnregister" value='${msg("FailedUnregister")}'>
+					<input type="hidden" id="AutoOTPQRExpired" name="AutoOTPQRExpired" value='${msg("AutoOTPQRExpired")}'>
+					<input type="hidden" id="RegistrationCompleted" name="RegistrationCompleted" value='${msg("RegistrationCompleted")}'>
+					<input type="hidden" id="AutoOTPAccountStopped" name="AutoOTPAccountStopped" value='${msg("AutoOTPAccountStopped")}'>
+					<input type="hidden" id="ContactYourAccountManager" name="ContactYourAccountManager" value='${msg("ContactYourAccountManager")}'>
+					<input type="hidden" id="ThisAccountNotRegistered" name="ThisAccountNotRegistered" value='${msg("ThisAccountNotRegistered")}'>
+					<input type="hidden" id="RegisterAutoOTPAccountFirst" name="RegisterAutoOTPAccountFirst" value='${msg("RegisterAutoOTPAccountFirst")}'>
+					<input type="hidden" id="CancelAutoOTPSignIn" name="CancelAutoOTPSignIn" value='${msg("CancelAutoOTPSignIn")}'>
+					<input type="hidden" id="YourAutoOTPAccountNotRegistered" name="YourAutoOTPAccountNotRegistered" value='${msg("YourAutoOTPAccountNotRegistered")}'>
 
 	                <#if !usernameHidden??>
 	                    <div class="${properties.kcFormGroupClass!}">
@@ -51,8 +50,6 @@
 	
 	                    </div>
 	                </#if>
-
-
 
 					<div id="login_password">
 	
@@ -119,18 +116,18 @@
 						-->
 						
 						<div style="width:100%;text-align:right;">
-					    	<a href="#" onclick="loginAutoOTPconfigure();" style="display:inline-block;">Send AutoOTP setting email</a>
+					    	<a href="#" onclick="loginAutoOTPconfigure();" style="display:inline-block;">${msg("sendAutootpSettingEmail")}</a>
 						</div>
 					</div>
 
 					<div id="cancel_config_autootp" name="cancel_config_autootp" style="width:100%;text-align:right;display:none;">
 						<br>
-						<a href="#" onclick="cancelLoginAutoOTPconfigure();" style="display:inline-block;">Back to Login</a>
+						<a href="#" onclick="cancelLoginAutoOTPconfigure();" style="display:inline-block;">${msg("BackToLogin")}</a>
 					</div>
 						
 					<div id="move_home_btn" name="move_home_btn" style="width:100%;text-align:right;display:none;">
 						<br>
-						<a href="#" onclick="moveHome();" style="display:inline-block;">Back to Application</a>
+						<a href="#" onclick="moveHome();" style="display:inline-block;">${msg("BackToApplication")}</a>
 					</div>
 
 					<script type="text/javascript" src="${url.resourcesCommonPath}/node_modules/jquery/dist/jquery.min.js"></script>

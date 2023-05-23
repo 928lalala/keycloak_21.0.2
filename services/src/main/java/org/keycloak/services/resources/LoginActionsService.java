@@ -89,6 +89,8 @@ import org.keycloak.sessions.AuthenticationSessionModel;
 import org.keycloak.sessions.RootAuthenticationSessionModel;
 import org.keycloak.theme.freemarker.FreeMarkerProvider;
 import org.keycloak.theme.Theme;
+import org.keycloak.theme.beans.MessageFormatterMethod;
+import org.keycloak.utils.StringUtil;
 
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
@@ -115,6 +117,8 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Properties;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.io.UnsupportedEncodingException;
@@ -495,10 +499,13 @@ public class LoginActionsService {
     
     @Path("autootp-regist")
     @GET
-    public Response executeAutoOTPRegist(@QueryParam("param") String param) {
+    public Response executeAutoOTPRegist(@QueryParam("param") String param, @QueryParam("oneclick") String oneclick, @QueryParam("link") String link) {
     	System.out.println("LoginActionsService :: executeAutoOTPRegist - param=" + param);
-        if(param == null)
-        	param = "";
+    	System.out.println("LoginActionsService :: executeAutoOTPRegist - oneclick=" + oneclick);
+    	System.out.println("LoginActionsService :: executeAutoOTPRegist - link=" + link);
+        if(param == null)		param = "";
+        if(oneclick == null)	oneclick = "";
+        if(link == null)		link = "";
         
         param = param.replaceAll("_", "\\+");
     	
@@ -513,6 +520,8 @@ public class LoginActionsService {
     	ClientModel client = null;
     	Map<String, Object> map = new HashMap<>();
     	map.put("param", param);
+    	map.put("oneclick", oneclick);
+    	map.put("link", link);
     	
     	String dateTime = "";
     	long expirationInMinutes = 0L;
@@ -578,11 +587,19 @@ public class LoginActionsService {
         	String url = uriInfo.getBaseUri().toString();
         	System.out.println("LoginActionsService :: executeAutoOTPRegist - url=" + url);
         	
-        	//Theme theme = getTheme();
         	Theme theme = session.theme().getTheme(Theme.Type.LOGIN);
             map.put("properties", theme.getProperties());
             map.put("resourcesPath", url + "resources/" + Version.RESOURCES_VERSION + "/" + theme.getType().toString().toLowerCase() +"/" + theme.getName());
             map.put("resourcesCommonPath", url + "resources/" + Version.RESOURCES_VERSION + "/common/keycloak");
+
+        	Locale locale = session.getContext().resolveLocale(null);
+            Properties messages = new Properties();
+            messages.putAll(theme.getMessages(locale));
+            if(StringUtil.isNotBlank(realm.getDefaultLocale())) {
+                messages.putAll(realm.getRealmLocalizationTextsByLocale(realm.getDefaultLocale()));
+            }
+            messages.putAll(realm.getRealmLocalizationTextsByLocale(locale.toLanguageTag()));
+            map.put("msg", new MessageFormatterMethod(locale, messages));
 
 	    	FreeMarkerProvider freeMarkerUtil = session.getProvider(FreeMarkerProvider.class);
 	    	

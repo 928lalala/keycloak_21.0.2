@@ -16,7 +16,24 @@
 
         		<input type="hidden" id="login_step" name="login_step" value="${realm.attributeautootpAppSettingStep!''}">
 				<input type="hidden" id="login_flow" name="login_flow" value="">
-				<input type="hidden" id="submit_url" value="${url.loginAction}">
+				<input type="hidden" id="submit_url" name="submit_url" value="${url.loginAction}">
+				
+				<input type="hidden" id="backToLogin" name="backToLogin" value='${msg("backToLogin")}'>
+				<input type="hidden" id="backToApplication" name="backToApplication" value='${msg("backToApplication")}'>
+				
+				<input type="hidden" id="AutoOTPSignIn" name="AutoOTPSignIn" value='${msg("AutoOTPSignIn")}'>
+				<input type="hidden" id="HomeURLnotRegistered" name="HomeURLnotRegistered" value='${msg("HomeURLnotRegistered")}'>
+				<input type="hidden" id="AutoOTPEmailSent" name="AutoOTPEmailSent" value='${msg("AutoOTPEmailSent")}'>
+				<input type="hidden" id="doTryAgain" name="doTryAgain" value='${msg("doTryAgain")}'>
+				<input type="hidden" id="FailedUnregister" name="FailedUnregister" value='${msg("FailedUnregister")}'>
+				<input type="hidden" id="AutoOTPQRExpired" name="AutoOTPQRExpired" value='${msg("AutoOTPQRExpired")}'>
+				<input type="hidden" id="RegistrationCompleted" name="RegistrationCompleted" value='${msg("RegistrationCompleted")}'>
+				<input type="hidden" id="AutoOTPAccountStopped" name="AutoOTPAccountStopped" value='${msg("AutoOTPAccountStopped")}'>
+				<input type="hidden" id="ContactYourAccountManager" name="ContactYourAccountManager" value='${msg("ContactYourAccountManager")}'>
+				<input type="hidden" id="ThisAccountNotRegistered" name="ThisAccountNotRegistered" value='${msg("ThisAccountNotRegistered")}'>
+				<input type="hidden" id="RegisterAutoOTPAccountFirst" name="RegisterAutoOTPAccountFirst" value='${msg("RegisterAutoOTPAccountFirst")}'>
+				<input type="hidden" id="CancelAutoOTPSignIn" name="CancelAutoOTPSignIn" value='${msg("CancelAutoOTPSignIn")}'>
+				<input type="hidden" id="YourAutoOTPAccountNotRegistered" name="YourAutoOTPAccountNotRegistered" value='${msg("YourAutoOTPAccountNotRegistered")}'>
 				
 				<form id="frm" name="frm">
 					<input type="hidden" id="hidden_username" name="hidden_username" value="${(username!'')}">
@@ -56,7 +73,7 @@
 				
 				<div id="reg_qr" style="text-align:center; display:none;">
 					<span style="width:100%; text-align:center;">
-						<h1>AutoOTP Registration</h1>
+						<h1>${msg("AutoOTPRegistration")}</h1>
 						<br>
 						<img id="qr" name="qr" src="" width="300px" height="300px" style="display:inline-block;">
 					</span>
@@ -91,7 +108,7 @@
 					<!--
 					<br>
 					<div style="width:100%;text-align:right;">
-						<a href="#" onclick="cancelWithdrawAutoOTP();" style="display:inline-block;">Back to Login</a>
+						<a href="#" onclick="cancelWithdrawAutoOTP();" style="display:inline-block;">${msg("backToLogin")}</a>
 					</div>
 					-->
 				</div>
@@ -99,17 +116,17 @@
 			</div>
 			<div id="loading" style="text-align:center; display:none;">
 				<span style="display:inline-block; width:100%;font-size:16px;">
-					Wait for loading...
+					${msg("Waitforloading")}
 				</span>
 			</div>
 		</div>
 		<div id="txt_autootp_email" name="txt_autootp_email" style="width:100%;text-align:center; display:none;">
-			Waiting for sending email...
+			${msg("WaitingforsendingEmail")}
 			<br>
 			&nbsp;
 		</div>
 		<div id="link_autootp_email" name="link_autootp_email" style="width:100%;text-align:right; display:none;">
-	    	<a href="#" onclick="sendAutoOTPRegEmail('T');" style="display:inline-block;">Send AutoOTP setting email</a>
+	    	<a href="#" onclick="sendAutoOTPRegEmail('T');" style="display:inline-block;">${msg("SendAutoOTPsettingEmail")}</a>
 	    	<br>
 	    	&nbsp;
 		</div>
@@ -117,7 +134,7 @@
 			<!--
 	    	<a href="#" onclick="sendAutoOTPRegEmail();" style="display:inline-block;">AutoOTP RegEmail</a>
 	    	-->
-	    	<a href="#" onclick="cancelWithdrawAutoOTP();" style="display:inline-block;">Back to Login</a>
+	    	<a href="#" onclick="cancelWithdrawAutoOTP();" style="display:inline-block;">${msg("BackToLogin")}</a>
 		</div>
 	    <script type="text/javascript" src="${url.resourcesCommonPath}/node_modules/jquery/dist/jquery.min.js"></script>
 	    <script type="text/javascript" src="${url.resourcesPath}/js/autootp_login.js"></script>

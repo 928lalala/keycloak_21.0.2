@@ -1,3 +1,17 @@
+var AutoOTPSignIn = $("#AutoOTPSignIn").val();
+var HomeURLnotRegistered = $("#HomeURLnotRegistered").val();
+var AutoOTPEmailSent = $("#AutoOTPEmailSent").val();
+var doTryAgain = $("#doTryAgain").val();
+var FailedUnregister = $("#FailedUnregister").val();
+var AutoOTPQRExpired = $("#AutoOTPQRExpired").val();
+var RegistrationCompleted = $("#RegistrationCompleted").val();
+var AutoOTPAccountStopped = $("#AutoOTPAccountStopped").val();
+var ContactYourAccountManager = $("#ContactYourAccountManager").val();
+var ThisAccountNotRegistered = $("#ThisAccountNotRegistered").val();
+var YourAutoOTPAccountNotRegistered = $("#YourAutoOTPAccountNotRegistered").val();
+var RegisterAutoOTPAccountFirst = $("#RegisterAutoOTPAccountFirst").val();
+var CancelAutoOTPSignIn = $("#CancelAutoOTPSignIn").val();
+
 // AutoOTP accept wait time (seconds)
 MaxTime = 60
 var autootp_2step_login = false;
@@ -10,16 +24,14 @@ if(base_url !== undefined && base_url != null && base_url != "") {
 		base_url += "/";
 }
 else {
-	base_url = "javascript:alert('Home URL is not registered.');";
+	base_url = "javascript:alert('" + HomeURLnotRegistered + "');";
 }
 
 var submit_url = $("#submit_url").val();
-if(submit_url === undefined || submit_url == null)
-	submit_url = "";
+if(submit_url === undefined || submit_url == null)				submit_url = "";
 
 var page_set = $("#page_set").val();
-if(page_set === undefined || page_set == null)
-	page_set = "";
+if(page_set === undefined || page_set == null)					page_set = "";
 
 var login_step = $("#login_step").val();
 var browser_flow_id = $("#browser_flow_id").val();
@@ -27,8 +39,7 @@ var browser_flow_id = $("#browser_flow_id").val();
 if(login_step === undefined || login_step == null)				login_step = "";
 if(browser_flow_id === undefined || browser_flow_id == null)	browser_flow_id = "";
 
-if(browser_flow_id.toUpperCase().indexOf("AUTOOTP") > -1)
-	$("#login_flow").val("AUTOOTP");
+if(browser_flow_id.toUpperCase().indexOf("AUTOOTP") > -1)		$("#login_flow").val("AUTOOTP");
 
 var login_flow = $("#login_flow").val();
 if(login_flow === undefined || login_flow == null)				login_flow = "";
@@ -146,7 +157,7 @@ function AutoOtpLoginRestAPI() {
 
 	console.log("page_set [" + page_set + "] login_flow [" + login_flow + "] login_step [" + login_step + "] username [" + username + "] login_username [" + login_username + "]" + ", autootp_conf [" + autootp_conf + "]");
 	
-	// 1-factor AutoOTP 인증화면
+	// 1-factor AutoOTP Auth
 	if(login_flow == "AUTOOTP" && login_step == "1step") {
 		if(username != "") {
 			
@@ -177,7 +188,7 @@ function AutoOtpLoginRestAPI() {
 				*/
 				$("#txt_autootp_email").css("display", "block");
 				setTimeout(() => sendAutoOTPRegEmail("F"), 100);
-				setTimeout(() => $("#txt_autootp_email").html("AutoOTP setting email has been sent.<br>&nbsp;"), 200);
+				setTimeout(() => $("#txt_autootp_email").html(AutoOTPEmailSent + "<br>&nbsp;"), 200);
 			}
 			else {
 				if(autootp_info != ""){
@@ -197,7 +208,7 @@ function AutoOtpLoginRestAPI() {
 			$("#link_autootp_email").css("display", "block");
 		}
 	}
-	// 2-factor AutoOTP 인증화면
+	// 2-factor AutoOTP Auto
 	else if(login_flow == "AUTOOTP" && login_step == "2step") {
 		if(username == "") {
 			$("#login_autootp").css("display", "none");
@@ -217,9 +228,9 @@ function AutoOtpLoginRestAPI() {
 			}
 			else {
 				LoginCancel("F");
-				//console.log("미등록 유저");
+				//console.log("Unregistered user");
 				//regAutoOTP();
-				alert("Your AutoOTP account is not registered.\nPlease register your AutoOTP account first.");
+				alert(YourAutoOTPAccountNotRegistered + "\n" + RegisterAutoOTPAccountFirst);
 			}
 		}
 	}
@@ -246,7 +257,7 @@ function loginAutoOTPconfigure() {
 	$("#sign_section").css("display", "none");
 	
 	$("#kc-login").val("Send AutoOTP setting email");
-	$("#autootp_login_btn").val("AutoOTP Sign In");
+	$("#autootp_login_btn").val(AutoOTPSignIn);
 	$("#password").val("");
 }
 
@@ -264,7 +275,7 @@ function AutoOTPLogin() {
 	if(sessionId !== undefined && sessionId != null && sessionId != "") {
 		LoginCancel('T');
 		window.localStorage.removeItem('session_id');
-		$("#autootp_login_btn").val("AutoOTP Sign In");
+		$("#autootp_login_btn").val(AutoOTPSignIn);
 		$("#autootp_num").html("--- ---");
 	}
 	else {
@@ -273,14 +284,14 @@ function AutoOTPLogin() {
 		
 		if(isReg == "T") {
 			var token = getTokenForOneTime();
-			var str_btn = "Cancel AutoOTP Sign In";
+			var str_btn = CancelAutoOTPSignIn;
 			$("#autootp_login_btn").val(str_btn);
 			
 			if(token != "")
 				loginAutoOTPStart(token);
 		}
 		else {
-			alert("This account is not registered.\nPlease register your AutoOTP account first.");
+			alert(ThisAccountNotRegistered + "\n" + RegisterAutoOTPAccountFirst);
 		}
 	}
 }
@@ -390,17 +401,17 @@ function loginAutoOTPStart(token) {
 				setTimeout(() => loginAutoOTPStart(token), 500);
 			}
 			else {
-				alert("Please try again later.");
+				alert(doTryAgain);
 				moveBack();
 			}
 		}
 		else {
-			alert("Please try again later.");
+			alert(doTryAgain);
 			moveBack();
 		}
 	}
 	else if(code == "200.7") {
-		alert("AutoOTP account stopped.\nContact your account manager.");
+		alert(AutoOTPAccountStopped + "\n" + ContactYourAccountManager);
 	}
 }
 
@@ -579,7 +590,7 @@ function moveHome() {
 	location.href = base_url;
 }
 
-// -------------------------------------------------- AutoOTP 등록 -------------------------------------------------
+// -------------------------------------------------- AutoOTP Registration -------------------------------------------------
 
 function regAutoOTP() {
 	$("#autoOtpLogin").css("display", "none");
@@ -636,7 +647,7 @@ function regAutoOTP() {
 		connWebSocket();
 	}
 	else {
-		alert("Please try again later.");
+		alert(doTryAgain);
 		
 		moveBack();
 	}
@@ -660,7 +671,7 @@ function regAutoOTPRepeat() {
 			clearTimeout(timeoutId1);
 			clearTimeout(timeoutId2);
 			
-			alert("Registration completed.");
+			alert(RegistrationCompleted);
 			
 			moveBack();
 		}
@@ -703,7 +714,7 @@ function drawAutoOTPReg() {
 		
 		$("#rest_time").html("0 : 00");
 		
-		setTimeout(() => alert("AutoOTP QR registration time has expired."), 100);
+		setTimeout(() => alert(AutoOTPQRExpired), 100);
 		setTimeout(() => moveBack(), 200);
 	}
 }
@@ -749,7 +760,7 @@ function loginAutoOTPwithdrawal(loginFlag) {
 			moveBack();
 		}
 		else {
-			alert("Faile to unregister.\nTry again.");
+			alert(FailedUnregister + "\n" + doTryAgain);
 			moveBack();
 		}
 	}
@@ -769,7 +780,7 @@ function sendAutoOTPRegEmail(flag) {
 	if(login_step == "2step" && flag == "T") {
 		autootp_2step_login = true;
 		LoginCancel("T");
-		$("#kc-login").val("AutoOTP Sign In");
+		$("#kc-login").val(AutoOTPSignIn);
 	}
 	
 	var userId = $("#username").val();
@@ -786,7 +797,7 @@ function sendAutoOTPRegEmail(flag) {
 	console.log("msg=" + msg + ", code=" + code);
 	
 	if(page_set == "autootp" && login_flow == "AUTOOTP" && login_step == "2step" && username != "") {
-		alert("AutoOTP setting email has been sent.");
+		alert(AutoOTPEmailSent);
 	}
 	*/
 
@@ -811,7 +822,7 @@ function sendAutoOTPRegEmail(flag) {
 		//console.log("msg=" + msg + ", code=" + code);
 		
 		if(code == "000")
-			setTimeout(() => $("#txt_autootp_email").html("AutoOTP setting email has been sent.<br>&nbsp;"), 300);
+			setTimeout(() => $("#txt_autootp_email").html(AutoOTPEmailSent + "<br>&nbsp;"), 300);
 		else
 			setTimeout(() => $("#txt_autootp_email").html("[" + code + "] " + msg + "<br>&nbsp;"), 300);
 	}
@@ -821,16 +832,7 @@ function sendAutoOTPRegEmail(flag) {
 	}
 }
 
-
 // -------------------------------------------------- WebSocket -------------------------------------------------
-
-/*
-	- WebSocket readyState
-	  0 CONNECTING	소켓이 생성됐으나 연결은 아직 개방되지 않았습니다.
-	  1 OPEN		연결이 개방되어 통신할 수 있습니다.
-	  2 CLOSING		연결을 닫는 중입니다.
-	  3 CLOSED		연결이 닫혔거나, 개방할 수 없었습니다.
-*/
 
 var qrSocket = null;
 
@@ -839,10 +841,7 @@ function connWebSocket() {
 	qrSocket = new WebSocket(pushConnectorUrl);
 
 	qrSocket.onopen = function(e) {
-		//console.log("######## WebSocket Connected ########");
 		var send_msg = '{"pushConnectorToken":"' + pushConnectorToken + '"}';
-		//console.log("url [" + pushConnectorUrl + "]");
-		//console.log("send [" + send_msg + "]");
 		try {
 			qrSocket.send(send_msg);
 		} catch(err) {
@@ -851,15 +850,9 @@ function connWebSocket() {
 	}
 
 	qrSocket.onmessage = async function (event) {
-		//console.log("######## WebSocket Data received [" + qrSocket.readyState + "] ########");
-		//console.log(event);
-		//console.log("=================================================");
-		
 		try {
 			if (event !== undefined && event != null) {
 				result = await JSON.parse(event.data);
-				//console.log(result);
-				//console.log("=================================================");
 			}
 		} catch (err) {
 			//console.log(err);
@@ -867,24 +860,8 @@ function connWebSocket() {
 	}
 
 	qrSocket.conclose = function(event) {
-		/*
-		if(event.wasClean)
-			console.log("######## WebSocket Disconnected - OK !!! [" + qrSocket.readyState + "] ########");
-		else
-			console.log("######## WebSocket Disconnected - Error !!! [" + qrSocket.readyState + "] ########");
-
-		console.log("=================================================");
-		console.log(event);
-		console.log("=================================================");
-		*/
 	}
 
 	qrSocket.onerror = function(error) {
-		/*
-		console.log("######## WebSocket Error !!! [" + qrSocket.readyState + "] ########");
-		console.log("=================================================");
-		console.log(error);
-		console.log("=================================================");
-		*/
 	}
 }
