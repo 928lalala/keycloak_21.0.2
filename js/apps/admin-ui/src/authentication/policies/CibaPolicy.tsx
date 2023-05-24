@@ -194,11 +194,6 @@ export const CibaPolicy = ({ realm, realmUpdated }: CibaPolicyProps) => {
             <KeycloakTextInput
               id="cibaInterval"
               type="number"
-              onKeyUp={() => {
-                console.log('!isValid:', !isValid)
-                console.log('!isDirty:', !isDirty)
-                console.log('isDisabled:', !isValid || !isDirty )
-                }}
               min={CIBA_INTERVAL_MIN}
               max={CIBA_INTERVAL_MAX}
               {...register("attributes.cibaInterval", {
