@@ -194,8 +194,6 @@ public class OIDCLoginProtocolService {
     @Path("autootp-policy-api")
     public Object autootpPolicyApi() {
     	
-    	System.out.println("############################### OIDCLoginProtocolService :: autootp-policy-api");
-    	
         return new AutootpPolicyEndpoint(session, event);
     }
     
