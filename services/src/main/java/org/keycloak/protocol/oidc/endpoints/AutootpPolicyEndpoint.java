@@ -165,6 +165,9 @@ import java.security.*;
 //import java.util.HashMap;
 
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 
 
@@ -232,7 +235,7 @@ public class AutootpPolicyEndpoint {
         cors = Cors.add(request).auth().allowedMethods("POST").auth().exposedHeaders(Cors.ACCESS_CONTROL_ALLOW_METHODS);
 
         MultivaluedMap<String, String> formParameters = session.getContext().getUri().getQueryParameters();
-    	System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - formParameters [" + formParameters.toString() + "] ");
+//    	System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - formParameters [" + formParameters.toString() + "] ");
 
         if (formParameters == null) {
             formParameters = new MultivaluedHashMap<>();
@@ -262,13 +265,30 @@ public class AutootpPolicyEndpoint {
     	String secretKey = "";
     	String privateKey = "";
     	String methodType = "GET";
-    	String developerUrl = "https://testdevelopers.autootp.com";
+    	
+    	
+    	
+    	String developerUrl = "";
+//    	String developerUrl = "https://testdevelopers.autootp.com";
 //    	String developerUrl = "https://developers.autootp.com";
     	
         List<String> values = null;
     	int i = 0;
 
         String KeyValueStr = "";
+        
+        
+        try (InputStream is = AutootpPolicyEndpoint.class.getResourceAsStream("/org/keycloak/autootp.properties")) {
+            Properties props = new Properties();
+            props.load(is);
+            developerUrl = props.getProperty("developerUrl");
+//            System.out.println("############################### kcAutootpAppSave :: devcenterUrl [" + developerUrl + "] ");
+
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        
+        
         if (formParameters != null) {
           for (String key : formParameters.keySet()) {
         	values = formParameters.get(key);
@@ -283,7 +303,8 @@ public class AutootpPolicyEndpoint {
 		                String signText = sign(values.toString().replaceAll("\\[","").replaceAll("\\]",""),mprivateKey);		// 개인키로 delkey를 전자인증 sign값으로 전송 
 		                KeyValueStr = KeyValueStr + "sign=" +  URLEncode(signText); 											// 전자인증 sign값을 URLEncode 처리 
 	        		}catch (Exception e) {
-	        			System.out.println("############################### kcAutootpAppSave :: RSA Sign 오류 [" + e.toString() + "] ");
+	        			System.out.println("kcAutootpAppSave :: RSA Sign error [" + e.toString() + "] ");
+//	        			System.out.println("############################### kcAutootpAppSave :: RSA Sign 오류 [" + e.toString() + "] ");
 	        		}
 	        	}else {
 		            KeyValueStr = KeyValueStr + key + "=" +  URLEncode(values.toString().replaceAll("\\[","").replaceAll("\\]",""));
@@ -298,6 +319,7 @@ public class AutootpPolicyEndpoint {
         	  methodType = "POST";
         	  try {
             	  
+//        		  System.out.println("############################### kcAutootpAppSave ::realm.getAttribute autootpAppSettingPublickey [" + realm.getAttribute("autootpAppSettingPublickey") + "] ");
                   if(realm.getAttribute("autootpAppSettingPublickey") == null || realm.getAttribute("autootpAppSettingPublickey").equals("")) {
                       createRsaGenKey(); // RSA PublicKey/PrivateKey create
                 	  realm.setAttribute("autootpAppSettingPublickey", mpublicKey);
@@ -306,7 +328,8 @@ public class AutootpPolicyEndpoint {
             	  KeyValueStr = KeyValueStr + "&pubKey=" +  URLEncode(realm.getAttribute("autootpAppSettingPublickey"));
         		  
         	  }catch (Exception e) {
-        		  System.out.println("############################### kcAutootpAppSave ::RSA PublicKey/PrivateKey create Error [" + e.toString() + "] ");
+        		  System.out.println("kcAutootpAppSave ::RSA PublicKey/PrivateKey create Error [" + e.toString() + "] ");
+//        		  System.out.println("############################### kcAutootpAppSave ::RSA PublicKey/PrivateKey create Error [" + e.toString() + "] ");
         	  }
         	  break;
           case "[kcAutootpDeleteKey]": 
@@ -330,10 +353,10 @@ public class AutootpPolicyEndpoint {
         	  methodType = "GET";
         	  break;
           }
-          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - urlKey [" + urlKey + "] ");
-          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - url [" + url + "] ");
-          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - appID [" + appID + "] ");
-          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - KeyValueStr [" + KeyValueStr + "] ");
+//          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - urlKey [" + urlKey + "] ");
+//          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - url [" + url + "] ");
+//          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - appID [" + appID + "] ");
+//          System.out.println("############################### AutootpPolicyEndpoint :: processGrantRequestInternal - KeyValueStr [" + KeyValueStr + "] ");
         }
     	
     	Map<String, Object> callResult = callServerApi(methodType, url, KeyValueStr);
@@ -382,17 +405,18 @@ public class AutootpPolicyEndpoint {
  		try {
  			if(methodType.equals("POST")) {	
  				result = sendPost(url, params);	
- 	 			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendPost result [" + result + "]");
+// 	 			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendPost result [" + result + "]");
  			} 
  			else {	
  				result = sendGet(url, params);	
- 	 			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendGet result [" + result + "]");
+// 	 			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendGet result [" + result + "]");
  			}
  		} catch(Exception e) {
- 			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ callServerApi Error: " + e);
+ 			System.out.println("callServerApi Error: " + e);
+// 			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ callServerApi Error: " + e);
  		}
 
-		System.out.println("result [" + result + "]");
+//		System.out.println("result [" + result + "]");
 
 		Map<String, Object> mapResult = new HashMap<String, Object>();
 		
@@ -426,10 +450,10 @@ public class AutootpPolicyEndpoint {
 
  		String retVal = "";
  		Map<String, String> mapParams = getParamsKeyValue(params);
- 		System.out.println("params [" + params + "]");
- 		System.out.println("type [" + type + "]");
- 		System.out.println("requestURL [" + requestURL + "]");
- 		System.out.println("map [" + mapParams.toString() + "]");
+// 		System.out.println("params [" + params + "]");
+// 		System.out.println("type [" + type + "]");
+// 		System.out.println("requestURL [" + requestURL + "]");
+// 		System.out.println("map [" + mapParams.toString() + "]");
 
  		try {
  			URIBuilder b = new URIBuilder(requestURL);
@@ -442,7 +466,7 @@ public class AutootpPolicyEndpoint {
  				//String value = mapParams.get(key);
  				b.addParameter(key, value);
  				
- 				System.out.println("key [" + key + "] value [" + value + "]");
+// 				System.out.println("key [" + key + "] value [" + value + "]");
  			}
  			URI uri = b.build();
  	
@@ -455,7 +479,7 @@ public class AutootpPolicyEndpoint {
  		        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");;
  	        	response = httpClient.execute(httpPost);
  	        	
- 	        	System.out.println("response [" + response.toString() + "]");
+// 	        	System.out.println("response [" + response.toString() + "]");
  	        }
  	        else {
  	        	HttpGet httpGet = new HttpGet(uri);
@@ -510,9 +534,24 @@ public class AutootpPolicyEndpoint {
      */
     private static void createRsaGenKey() throws Exception{
 
-        String pubkey = "KeycloalAutoOTP";
+//        String pubkey = "KeycloalAutoOTP";
 
-        SecureRandom random = new SecureRandom(pubkey.getBytes());
+        String genPubkey = "";
+        
+        
+        try (InputStream is = AutootpPolicyEndpoint.class.getResourceAsStream("/org/keycloak/autootp.properties")) {
+            Properties props = new Properties();
+            props.load(is);
+            genPubkey = props.getProperty("genPubkey");
+//            System.out.println("############################### kcAutootpAppSave :: genPubkey [" + genPubkey + "] ");
+
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        
+        
+        
+        SecureRandom random = new SecureRandom(genPubkey.getBytes());
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA","SunJSSE"); // OK
         generator.initialize(2048, random); // 여기에서는 2048 bit 키를 생성하였음
 
@@ -522,8 +561,8 @@ public class AutootpPolicyEndpoint {
         
         mpublicKey = Base64.getEncoder().encodeToString(pubKey.getEncoded());
         mprivateKey = Base64.getEncoder().encodeToString(privKey.getEncoded());
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% createRsaGenKey :: mpublicKey [" + mpublicKey + "] ");    
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% createRsaGenKey :: mprivateKey [" + mprivateKey + "] ");    
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% createRsaGenKey :: mpublicKey [" + mpublicKey + "] ");    
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% createRsaGenKey :: mprivateKey [" + mprivateKey + "] ");    
         
     }
 
@@ -782,14 +821,14 @@ public class AutootpPolicyEndpoint {
     }
     public static String sign(String plainText,String strPrivateKey) {
         try {
-        	System.out.println("전자서명 전 plainText값====================="+plainText); 
-        	System.out.println("전자서명 전 개인키값====================="+strPrivateKey); 
+//        	System.out.println("전자서명 전 plainText값====================="+plainText); 
+//        	System.out.println("전자서명 전 개인키값====================="+strPrivateKey); 
         	PrivateKey privateKey = getPrivateKey(strPrivateKey);
         	Signature privateSignature = Signature.getInstance("SHA256withRSA");
             privateSignature.initSign(privateKey);
             privateSignature.update(plainText.getBytes("UTF-8"));
             byte[] signature = privateSignature.sign();
-        	System.out.println("전자서명 후 sign값====================="+Base64.getEncoder().encodeToString(signature)); 
+//        	System.out.println("전자서명 후 sign값====================="+Base64.getEncoder().encodeToString(signature)); 
             return Base64.getEncoder().encodeToString(signature);
         } catch (NoSuchAlgorithmException | InvalidKeyException | UnsupportedEncodingException | SignatureException e) {
             throw new RuntimeException(e);
@@ -837,7 +876,7 @@ public class AutootpPolicyEndpoint {
 		int responseCode = con.getResponseCode();
 
 		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
+        new InputStreamReader(con.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 
@@ -845,7 +884,7 @@ public class AutootpPolicyEndpoint {
 			response.append(inputLine);
 		}
 		in.close();
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendPost ("+url+") :: ["+responseCode+"]"+ response.toString());
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendPost ("+url+") :: ["+responseCode+"]"+ response.toString());
 		return response.toString();
 
 	}
@@ -858,7 +897,7 @@ public class AutootpPolicyEndpoint {
  			urlStr = url + "?" + urlParameters;
  		}
  		
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendGet openConnection ("+urlStr+") ");
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendGet openConnection ("+urlStr+") ");
 		URL obj = new URL(urlStr);
 		ignoreSsl();
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -880,7 +919,7 @@ public class AutootpPolicyEndpoint {
 			response.append(inputLine);
 		}
 		in.close();
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendGet ("+urlStr+") :: ["+responseCode+"]"+ response.toString());
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ sendGet ("+urlStr+") :: ["+responseCode+"]"+ response.toString());
 		return response.toString();
 	}
  	
