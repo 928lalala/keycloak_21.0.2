@@ -39,7 +39,8 @@ var browser_flow_id = $("#browser_flow_id").val();
 if(login_step === undefined || login_step == null)				login_step = "";
 if(browser_flow_id === undefined || browser_flow_id == null)	browser_flow_id = "";
 
-if(browser_flow_id.toUpperCase().indexOf("AUTOOTP") > -1)		$("#login_flow").val("AUTOOTP");
+if(browser_flow_id.toUpperCase().indexOf("AUTOOTP") > -1 || browser_flow_id.toUpperCase().indexOf("PASSWORDLESS") > -1)
+	$("#login_flow").val("AUTOOTP");
 
 var login_flow = $("#login_flow").val();
 if(login_flow === undefined || login_flow == null)				login_flow = "";

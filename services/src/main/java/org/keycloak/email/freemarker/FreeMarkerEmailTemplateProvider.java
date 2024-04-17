@@ -119,7 +119,7 @@ public class FreeMarkerEmailTemplateProvider implements EmailTemplateProvider {
         if(dbBrowserFlowAlias == null)
         	dbBrowserFlowAlias = "";
         
-        if(dbBrowserFlowAlias.toUpperCase().indexOf("AUTOOTP") > -1)
+        if(dbBrowserFlowAlias.toUpperCase().indexOf("AUTOOTP") > -1 || dbBrowserFlowAlias.toUpperCase().indexOf("PASSWORDLESS") > -1)
         	dbBrowserFlowAlias = "AUTOOTP";
     	
     	String dateTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -293,7 +293,7 @@ public class FreeMarkerEmailTemplateProvider implements EmailTemplateProvider {
     @Override
     public void sendAutoOTPEmail(String link, String username, String dbSecretKey, String dbAuthDomain, long expirationInMinutes, String addr, String baseUrl) throws EmailException {
     	
-    	System.out.println("FreeMarkerEmailTemplateProvider :: sendAutoOTPEmail(" + link + ", " + user + ", " + expirationInMinutes + ", " + addr + ", " + baseUrl + ")");
+    	System.out.println("FreeMarkerEmailTemplateProvider :: sendAutoOTPEmail(" + link + ", " + username + ", " + expirationInMinutes + ", " + addr + ", " + baseUrl + ")");
 
     	setRealm(session.getContext().getRealm());
         //setUser(user);
